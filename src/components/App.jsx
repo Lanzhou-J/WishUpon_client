@@ -5,8 +5,9 @@ import Signup from "./SignUp";
 import Login from "./Login";
 import NoMatch from "./NoMatch";
 import Wishes from "./Wishes";
+import Wish from "./Wish";
 import CreateWish from "./CreateWish";
-import EditWish from "./EditWish"
+import EditWish from "./EditWish";
 
 
 class App extends React.Component {
@@ -17,7 +18,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/wishes/create" component={CreateWish} />
           <Route exact path="/wishes/:id/edit" component={EditWish} />
-          {/* <Route exact path="/wishes/:id" component={Wish} /> */}
+          <Route exact path="/wishes/:id" component={Wish} />
           <Route exact path="/wishes" component={Wishes} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/sign-up" component={Signup} />
