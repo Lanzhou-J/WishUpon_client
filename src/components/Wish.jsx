@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import moment from 'moment';
 
 class Wish extends React.Component {
@@ -36,6 +36,9 @@ class Wish extends React.Component {
         <div className="wish-view">
           <h1>{wish.title}</h1>
           <p>{wish.description}</p>
+          <Link to={`/wishes/${wish.id}/edit`}>
+            <button className="edit-back-delete-button" >Edit</button>
+          </Link>
           <span onClick={() => this.deleteWish(wish.id)}>
             <button className="edit-back-delete-button" >Delete</button>
           </span>
