@@ -30,11 +30,15 @@ class Wish extends React.Component {
 
   render() {
     console.log(this.state)
-    if(this.state.wishes){
+    const wish = this.state.wishes
+    if(wish){
       return (
         <div className="wish-view">
-          <h1>{this.state.wishes.title}</h1>
-          <p>{this.state.wishes.description}</p>
+          <h1>{wish.title}</h1>
+          <p>{wish.description}</p>
+          <span onClick={() => this.deleteWish(wish.id)}>
+            <button className="edit-back-delete-button" >Delete</button>
+          </span>
         </div>
       );
     }else{
