@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Wishes extends React.Component {
   state = { wishes: [] };
@@ -19,10 +19,11 @@ class Wishes extends React.Component {
     return this.state.wishes.map((wish, index) => {
       return (
         <div className="wish-index" key={index}>
-          {/* <Link to={{ pathname: `/wishes/${wish.id}`, state: wishes }}>           */}
+          <Link to={{ pathname: `/wishes/${wish.id}`}}>          
           <h3 className="wish-index-title">{wish.title}</h3>
           <p>Description: {wish.description}</p>
-          {/* </Link> */}
+          </Link>
+          <hr/>
         </div>
       );
     });
