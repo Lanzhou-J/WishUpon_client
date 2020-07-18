@@ -1,10 +1,10 @@
 // Navbar.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const NavBar = () => {
-  // const history = useHistory();
+  const history = useHistory();
 
   return (
     <nav>
@@ -14,14 +14,14 @@ const NavBar = () => {
       <Link to="/login">Login</Link>
       <Link to="/sign-up">Sign Up</Link>
       <Link to="/secrets">Secrets</Link>
-      {/* <span
+      <span
         onClick={() => {
           localStorage.removeItem("token");
           history.push("/login");
         }}
       >
         Logout
-      </span> */}
+      </span>
     </nav>
   );
 };
