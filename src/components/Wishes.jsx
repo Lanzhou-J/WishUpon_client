@@ -6,9 +6,9 @@ class Wishes extends React.Component {
 
   getWishes = async () => {
     const response = await fetch("http://localhost:3000/wishes/", {
-      // headers: {
-      //   'Authorization': `Bearer ${localStorage.getItem('token')}`
-      // }
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
     });
     const data = await response.json();
     this.setState({ wishes: data.wishes });

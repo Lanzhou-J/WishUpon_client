@@ -6,17 +6,21 @@ class Wish extends React.Component {
   state = { wishes: null };
   deleteWish = async (id) => {
     await fetch(`http://localhost:3000/wishes/${id}`, {
-      method: "DELETE"
-      // headers: {
-      //   'Authorization': `Bearer ${localStorage.getItem('token')}`
-      // },
+      method: "DELETE",
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
     });
     window.alert("Deleted The Post!");
     this.props.history.push("/wishes");
   };
 
   showWish = async (id) => {
-    const response = await fetch(`http://localhost:3000/wishes/${id}`)
+    const response = await fetch(`http://localhost:3000/wishes/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
     const data = await response.json();
     console.log(data.description)
     this.setState({ wishes: data});
