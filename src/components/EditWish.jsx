@@ -1,7 +1,7 @@
 import React from "react";
 
 class EditWish extends React.Component {
-  state = { title: "", description: "", user_id: 1, loading: true, id: this.props.match.params.id };
+  state = { title: "", description: "", user_id: "", loading: true, id: this.props.match.params.id };
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value
@@ -24,7 +24,13 @@ class EditWish extends React.Component {
 
   async componentDidMount() {
     const { id } = this.state
-    const response = await fetch(`http://localhost:3000/wishes/${id}`);
+    const response = await fetch(`http://localhost:3000/wishes/${id}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`       
+      }
+    });
     const { title, description, user_id } = await response.json();
     this.setState({ title, user_id, description, loading: false });
   }
