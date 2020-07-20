@@ -15,7 +15,7 @@ const NavBar = () => {
         <Link to="/login">Login</Link>
         <Link to="/sign-up">Sign Up</Link>
         <Link to="/secrets">Secrets</Link>
-        <a
+        <a href="#"
           onClick={() => {
             localStorage.removeItem("token");
             history.push("/login");
