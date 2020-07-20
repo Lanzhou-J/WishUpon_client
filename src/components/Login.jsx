@@ -1,4 +1,5 @@
 import React from "react";
+import "../stylesheets/login-signup.scss"
 
 class Login extends React.Component {
   state = { email: "", password: "", errMessage: "" };
@@ -30,6 +31,7 @@ class Login extends React.Component {
         const { jwt } = await response.json();
         localStorage.setItem("token", jwt);
         this.props.history.push("/secrets");
+        window.location.reload();
       }
     } catch (err) {
       this.setState({
@@ -41,28 +43,37 @@ class Login extends React.Component {
   render() {
     const { email, password, errMessage } = this.state;
     return (
-      <div className="container">
-        <h1>Login</h1>
-        {errMessage && <span>{errMessage}</span>}
-        <form onSubmit={this.onFormSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={this.onInputChange}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={this.onInputChange}
-          />
-          <input type="submit" value="Submit" />
-        </form>
+      <div className="Home-container">
+        <div className="image-container">
+          <div className="image-wrapper">
+            <img id="Home-image" src="Jovia_illustrations3.png" alt="Jovia_Illustrations1"/>
+          </div>
+        </div>
+      
+        <div className="form-container">
+          <h1 className="login-h1">Welcome back</h1>
+          {errMessage && <span>{errMessage}</span>}
+          <form className="loginform" onSubmit={this.onFormSubmit}>
+            <input className="form-input"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={this.onInputChange}
+            />
+            <input
+              className="form-input"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={this.onInputChange}
+            />
+            <input id="login-button" type="submit" value="Login" />
+          </form>
+        </div>
       </div>
     );
   }

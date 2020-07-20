@@ -10,7 +10,8 @@ import CreateWish from "./CreateWish";
 import EditWish from "./EditWish";
 import ProtectedRoute from "./ProtectedRoute";
 import Secrets from "./Secrets";
-import Navbar from "../shared/Navbar"
+import Navbar from "../shared/Navbar";
+import "../stylesheets/App.scss"
 
 
 class App extends React.Component {
