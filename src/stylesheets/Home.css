@@ -1,0 +1,55 @@
+.Home-container {
+  display: flex;
+}
+
+#Home-image {
+  width: 43vw;
+}
+
+.text-container {
+  padding: 20px 50px 0 50px;
+}
+
+.home-text {
+  font-size: 4.3em;
+}
+
+p {
+  padding: 0 100px 0 5px;
+}
+
+span {
+  color: gray;
+}
+
+.button-container {
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  margin-right: 30px;
+  margin-top: 80px;
+}
+
+.link-login,.link-sign-up {
+  margin-top: 15px;
+}
+
+.button-login,.button-sign-up {
+  width: 250px;
+  height: 35px;
+  background-color: white;
+  font-size: 1.1em;
+}
+
+.button-sign-up:hover {
+  cursor: pointer;
+}
+
+.button-login:hover {
+  cursor: pointer;
+}
+
+.link-about {
+  margin-top: 15px;
+}
+
