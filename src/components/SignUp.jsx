@@ -1,7 +1,7 @@
 import React from "react";
 
 class SignUp extends React.Component {
-  state = { email: "", password: ""};
+  state = { email: "", password: "", country_id: ""};
 
   onInputChange = (event) => {
     const key = event.target.id;
@@ -12,14 +12,14 @@ class SignUp extends React.Component {
 
   onFormSubmit = async (event) => {
     event.preventDefault();
-    const { email, password} = this.state;
+    const { email, password, country_id} = this.state;
     try {
       const response = await fetch("http://localhost:3000/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: { email, password}}),
+        body: JSON.stringify({ user: { email, password, country_id}}),
       });
       if (response.status >= 400) {
         throw new Error("incorrect credentials");
@@ -29,7 +29,7 @@ class SignUp extends React.Component {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ auth: { email, password}}),
+          body: JSON.stringify({ auth: { email, password, country_id}}),
         })
         const { jwt } = await response.json()
         localStorage.setItem("token", jwt);
@@ -41,7 +41,7 @@ class SignUp extends React.Component {
   };
 
   render() {
-    const { email, password} = this.state;
+    const { email, password, country_id} = this.state;
     return (
       <div className="container">
         <h1>Sign Up</h1>
@@ -62,14 +62,14 @@ class SignUp extends React.Component {
             value={password}
             onChange={this.onInputChange}
           />
-          {/* <label htmlFor="country_id">Country ID</label>
+          <label htmlFor="country_id">Country ID</label>
           <input
             type="country_id"
             name="country_id"
             id="country_id"
             value={country_id}
             onChange={this.onInputChange}
-          /> */}
+          />
           <input type="submit" value="Submit" />
         </form>
       </div>
