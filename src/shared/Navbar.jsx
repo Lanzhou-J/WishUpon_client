@@ -16,8 +16,6 @@ const NavBar = () => {
           <Link to="/">Home</Link>
           <Link to="/wishes">Wishes</Link>
           <Link to="/wishes/create">Create Wish</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/sign-up">Sign Up</Link>
           <Link to="/secrets">Secrets</Link>
           <a href="#"
             onClick={() => {
@@ -39,11 +37,8 @@ const NavBar = () => {
         <div className="nav-spaceholder"></div>
         <div className="nav-links">
           <Link to="/">Home</Link>
-          <Link to="/wishes">Wishes</Link>
-          <Link to="/wishes/create">Create Wish</Link>
           <Link to="/login">Login</Link>
           <Link to="/sign-up">Sign Up</Link>
-          <Link to="/secrets">Secrets</Link>
         </div>
 
       </nav>
