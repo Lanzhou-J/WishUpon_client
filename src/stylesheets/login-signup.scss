@@ -8,13 +8,16 @@
   
   .login-h1 {
       font-size:3.5em;
+      span{
+        color:gray;
+      }
     }
 
   .loginform {
     display: flex;
     flex-direction:column;
     // background-color: gray;
-    height: 200px;
+    height: 250px;
     justify-content: space-evenly;
     align-items: center;
     .form-input {

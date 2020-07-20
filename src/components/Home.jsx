@@ -8,7 +8,7 @@ class Home extends React.Component {
       <div className="Home-container">
         <div className="image-container">
           <div className="image-wrapper">
-            <img id="Home-image" src="Jovia_Illustrations.png" alt="Jovia_Illustrations1"/>
+            <img id="Home-image" src="Jovia_Illustrations.png" alt="Jovia_Illustrations"/>
           </div>
         </div>
         <div className="text-container">

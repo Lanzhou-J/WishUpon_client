@@ -51,7 +51,7 @@ class SignUp extends React.Component {
           </div>
         </div>
         <div className="form-container">
-          <h1 className="login-h1">Sign Up to Wish Upon...</h1>
+          <h1 className="login-h1">Sign Up to <span>Wish Upon...</span></h1>
           <form className="loginform" onSubmit={this.onFormSubmit}>
             <input className="form-input"
               type="email"
