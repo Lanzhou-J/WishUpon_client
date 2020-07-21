@@ -5,7 +5,7 @@ import "../stylesheets/Home.scss"
 class Home extends React.Component {
   render() {
     return (
-      <div className="Home-container">
+      <div className="Home-container active">
         <div className="image-container">
           <div className="image-wrapper">
             <img id="Home-image" src="Jovia_Illustrations.png" alt="Jovia_Illustrations"/>
