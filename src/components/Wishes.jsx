@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../stylesheets/Wishes.scss"
 
 class Wishes extends React.Component {
   state = { wishes: [] };
@@ -18,10 +19,10 @@ class Wishes extends React.Component {
   renderWishes = () => {
     return this.state.wishes.map((wish, index) => {
       return (
-        <div className="wish-index" key={index}>
-          <Link to={{ pathname: `/wishes/${wish.id}` }}>
-            <h3 className="wish-index-title">{wish.title}</h3>
-            <p>Description: {wish.description}</p>
+        <div className="wish-index" key={index}>  
+          <Link to={{ pathname: `/wishes/${wish.id}`}}>          
+          <h3 className="wish-index-title">{wish.title}</h3>
+          <p>Description: {wish.description}</p>
           </Link>
           <hr />
         </div>
@@ -30,7 +31,12 @@ class Wishes extends React.Component {
   };
 
   render() {
-    return <div className="wish-index-container">{this.renderWishes()}</div>;
+    return (
+      <div className="wish-index-container">
+        <h1 className="title">Wishes</h1>
+        {this.renderWishes()}
+      </div>
+    );
   }
 
   async componentDidMount() {

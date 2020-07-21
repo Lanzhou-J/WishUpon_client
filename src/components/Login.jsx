@@ -51,7 +51,7 @@ class Login extends React.Component {
         </div>
       
         <div className="form-container">
-          <h1 className="login-h1">Welcome back</h1>
+          <h1 className="text-wrapper login-h1">Welcome back</h1>
           {errMessage && <span>{errMessage}</span>}
           <form className="loginform" onSubmit={this.onFormSubmit}>
             <input className="form-input"

@@ -38,6 +38,7 @@ class Wish extends React.Component {
     if(wish){
       return (
         <div className="wish-view">
+          <h1>Wish</h1>
           <h1>{wish.title}</h1>
           <p>{wish.description}</p>
           <Link to={`/wishes/${wish.id}/edit`}>
