@@ -12,8 +12,10 @@ class Home extends React.Component {
           </div>
         </div>
         <div className="text-container">
-          <h1 className="home-text">Make Your Wishes Come True When You <span>Wish Upon...</span></h1>
-          <p className="text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias nam molestiae tempora quas dolor quaerat cumque nostrum fugit, assumenda magni?</p>
+          <div className="text-wrapper">
+            <h1 className="home-text">Make Your Wishes Come True When You <span>Wish Upon...</span></h1>
+            <p className="text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias nam molestiae tempora quas dolor quaerat cumque nostrum fugit, assumenda magni?</p>
+          </div>
           <div className="button-container">
             <Link className="link-login" to="/login"><button className="button button-login">LOGIN</button></Link>
             <Link className="link-sign-up" to="/sign-up"><button className="button button-sign-up">SIGN UP</button></Link>
