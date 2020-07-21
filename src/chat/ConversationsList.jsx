@@ -52,7 +52,13 @@ class ConversationsList extends React.Component {
             handleReceivedMessage={this.handleReceivedMessage}
           />
         ) : null}
-        <h2>Conversations</h2>
+        <h2>Conversations / ROOMS</h2>
+        <p>These are channels or rooms</p>
+        <p>A room will contain two users so they can chat</p>
+        <p>
+          This should be done internal, and created with a user is able to talk
+          to another user
+        </p>
         <ul>{mapConversations(conversations, this.handleClick)}</ul>
         <NewConversationForm />
         {activeConversation ? (

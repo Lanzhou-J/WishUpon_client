@@ -1,5 +1,6 @@
 import React from "react";
 import NewMessageForm from "./NewMessageForm";
+import "../stylesheets/Chat.scss";
 
 const MessagesArea = ({ conversation: { id, title, messages } }) => {
   return (

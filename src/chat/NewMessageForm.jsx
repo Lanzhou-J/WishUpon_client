@@ -30,7 +30,11 @@ class NewMessageForm extends React.Component {
     return (
       <div className="newMessageForm">
         <form onSubmit={this.handleSubmit}>
-          <label>New Message:</label>
+          <label>Send Message:</label>
+          <p>
+            Ideally, we should split the areas up. Room/Users/ on the right, and
+            all messages from that room on the left
+          </p>
           <br />
           <input
             type="text"

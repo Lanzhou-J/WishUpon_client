@@ -1,5 +1,4 @@
 // src/components/NewConversationForm.js
-
 import React from "react";
 import { API_ROOT, HEADERS } from "../constants";
 
@@ -26,14 +25,15 @@ class NewConversationForm extends React.Component {
     return (
       <div className="newConversationForm">
         <form onSubmit={this.handleSubmit}>
-          <label>New Conversation:</label>
+          <label>You Can Create A New Room/Conversation Here:</label>
           <br />
           <input
+            className="form"
             type="text"
             value={this.state.title}
             onChange={this.handleChange}
           />
-          <input type="submit" />
+          <input className="button" type="submit" />
         </form>
       </div>
     );
