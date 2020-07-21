@@ -8,8 +8,8 @@ class Wishes extends React.Component {
   getWishes = async () => {
     const response = await fetch("http://localhost:3000/wishes/", {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
     const data = await response.json();
     this.setState({ wishes: data.wishes });
@@ -19,13 +19,12 @@ class Wishes extends React.Component {
   renderWishes = () => {
     return this.state.wishes.map((wish, index) => {
       return (
-        <div className="wish-index" key={index}>
-          
+        <div className="wish-index" key={index}>  
           <Link to={{ pathname: `/wishes/${wish.id}`}}>          
           <h3 className="wish-index-title">{wish.title}</h3>
           <p>Description: {wish.description}</p>
           </Link>
-          <hr/>
+          <hr />
         </div>
       );
     });

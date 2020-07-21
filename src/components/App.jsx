@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import Signup from "./SignUp";
@@ -11,8 +11,8 @@ import EditWish from "./EditWish";
 import ProtectedRoute from "./ProtectedRoute";
 import Secrets from "./Secrets";
 import Navbar from "../shared/Navbar";
-import "../stylesheets/App.scss"
-
+import "../stylesheets/App.scss";
+import Room from "../shared/Room";
 
 class App extends React.Component {
   render() {
@@ -28,6 +28,7 @@ class App extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/sign-up" component={Signup} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/room" component={Room} />
           <Route component={NoMatch} />
         </Switch>
         {/* <Footer /> */}
@@ -37,4 +38,3 @@ class App extends React.Component {
 }
 
 export default App;
-
