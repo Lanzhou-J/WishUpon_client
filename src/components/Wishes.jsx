@@ -20,13 +20,15 @@ class Wishes extends React.Component {
     // console.log(this.state)
     return this.state.wishes.map((wish, index) => {
       return (
-        <div className="wish-index" key={index}>  
-          <Link to={{ pathname: `/wishes/${wish.id}`}}>          
-          <h3 className="wish-index-title">{wish.title}</h3>
-          <p>Description: {wish.description}</p>
-          </Link>
-          <hr />
-        </div>
+          <div className="card-wrapper">
+            <div className="wish-index card" key={index}>  
+              <Link to={{ pathname: `/wishes/${wish.id}`}}>          
+                <h3 className="wish-index-title">{wish.title}</h3>
+                <p>Description: {wish.description}</p>
+              </Link>
+              <hr />
+            </div>
+          </div>
       );
     });
   };
@@ -34,8 +36,10 @@ class Wishes extends React.Component {
   render() {
     return (
       <div className="wish-index-container">
-        <h1 className="title">Wishes</h1>
-        {this.renderWishes()}
+          <h1 className="title">Wishes</h1>
+          <div className="card-container">
+              {this.renderWishes()}
+          </div>
       </div>
     );
   }

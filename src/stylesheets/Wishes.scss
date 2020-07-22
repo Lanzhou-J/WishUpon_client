@@ -2,3 +2,38 @@
   text-align: center;
   font-size: 1.4em;
 }
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-evenly;
+  justify-content: space-evenly;
+  max-width: 100%;
+  margin-bottom: 50px;
+  // background-color: tomato;
+}
+
+// format cards with similar style
+.card-wrapper{
+	width: 380px;
+  height:350px;
+  background-color:white;
+  display: flex;
+  border-color: darkgray;
+  border-style: solid;
+  border-width: thin;
+  margin: 10px;
+  // background-color: green;  
+}
+
+.card-wrapper:hover {
+  box-shadow: 0 12px 20px 0 rgba(0,0,0,0.2);
+  -webkit-transform: scale(1.02);
+  transform: scale(1.01) translateY(-2px);
+}
+
+.card {
+  font-family: Arial, Helvetica, sans-serif;
+  // background-color: blue; 
+  width: 100%; 
+}
