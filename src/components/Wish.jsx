@@ -50,11 +50,57 @@ class Wish extends React.Component {
     });
   };
 
+  onInputChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+    console.log(this.state);
+    // console.log(this.props);
+    // console.log(this.body);
+  };
+
+  onCommentFormSubmit = async(event) => {
+    const b = this.props.match.params.id;
+    event.preventDefault();
+
+    const body = {content: this.state.content};
+
+    await fetch(`http://localhost:3000/wishes/${b}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(body),
+    });
+    window.location.reload();
+  };
+
+  createComments = () => {
+    return (
+      <div className="form-container-wish" style={{ margin: "0 0 35px 0" }}>
+        <form className="wish-form" onSubmit={this.onCommentFormSubmit}>
+          <h4>Add a comment:</h4>
+          <label htmlFor="content">Content:</label>
+          <input
+            className="wish-input"
+            type="text"
+            name="content"
+            id="content"
+            onChange={this.onInputChange}
+          />
+          <input type="submit" value="Add Entry" />
+        </form>
+      </div>
+    )   
+  }
+
   componentDidMount(){
     const b = this.props.match.params.id;
     // console.log(b)
     this.showWish(b)
     this.showComment(b)
+    
   }
 
   render() {
@@ -80,6 +126,7 @@ class Wish extends React.Component {
            <h3>Comments:</h3>
           {this.renderComments()}
           </div>
+          {this.createComments()}
         </div>
       );
     }else{
