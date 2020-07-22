@@ -22,7 +22,7 @@ class Wish extends React.Component {
       }
     });
     const data = await response.json();
-    // console.log(data.description)
+    console.log(data.keywords)
     this.setState({ wishes: data});
   }
 
@@ -110,12 +110,17 @@ class Wish extends React.Component {
     // console.log(comments)
     if(wish&&comments){
       // console.log(comments.comments)
+      let keywords = []
+      wish.keywords.forEach((word)=>{
+        keywords.push(word.word)
+      })
       return (
         <div className="wish-view">
           <h1>Wish</h1>
           <h1>{wish.title}</h1>
           <p>{wish.user.first_name}</p>
           <p>{wish.description}</p>
+          <p>Keywords: {`${keywords} `}</p>
           <Link to={`/wishes/${wish.id}/edit`}>
             <button className="edit-back-delete-button" >Edit</button>
           </Link>

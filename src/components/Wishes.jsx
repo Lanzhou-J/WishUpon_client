@@ -27,12 +27,13 @@ class Wishes extends React.Component {
       return (
           <div className="card-wrapper" key={index}>
             <div className="wish-index card" >  
-              <Link to={{ pathname: `/wishes/${wish.id}`}}>          
+              <Link to={{ pathname: `/wishes/${wish.id}`}}> 
                 <h3 className="wish-index-title">{wish.title}</h3>
+                </Link>
                 <p>Description: {wish.description}</p>
                 <p>Keywords: {`${keywords} `}</p>
-              </Link>
-            </div>
+              </div>
+
           </div>
       );
     });
