@@ -13,20 +13,25 @@ class Wishes extends React.Component {
     });
     const data = await response.json();
     this.setState({ wishes: data});
-    // console.log(this.state);
+    console.log(this.state);
   };
 
   renderWishes = () => {
     // console.log(this.state)
     return this.state.wishes.map((wish, index) => {
+      let keywords = []
+      wish.keywords.forEach((word)=>{
+        keywords.push(word.word)
+      })
+      // console.log(keywords)
       return (
-          <div className="card-wrapper">
-            <div className="wish-index card" key={index}>  
+          <div className="card-wrapper" key={index}>
+            <div className="wish-index card" >  
               <Link to={{ pathname: `/wishes/${wish.id}`}}>          
                 <h3 className="wish-index-title">{wish.title}</h3>
                 <p>Description: {wish.description}</p>
+                <p>Keywords: {`${keywords} `}</p>
               </Link>
-              <hr />
             </div>
           </div>
       );
