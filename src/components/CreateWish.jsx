@@ -6,7 +6,7 @@ class CreateWish extends React.Component {
       [event.target.id]: event.target.value,
       user_id: 1
     });
-    console.log(this.state);
+    // console.log(this.state);
     // console.log(this.props);
     // console.log(this.body);
   };
@@ -28,7 +28,7 @@ class CreateWish extends React.Component {
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     // console.log(localStorage.getItem("token"));
     return (
       <div className="form-container-wish" style={{ margin: "0 0 35px 0" }}>

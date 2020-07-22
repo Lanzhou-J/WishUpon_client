@@ -12,11 +12,12 @@ class Wishes extends React.Component {
       },
     });
     const data = await response.json();
-    this.setState({ wishes: data.wishes });
-    console.log(this.state);
+    this.setState({ wishes: data});
+    // console.log(this.state);
   };
 
   renderWishes = () => {
+    // console.log(this.state)
     return this.state.wishes.map((wish, index) => {
       return (
         <div className="wish-index" key={index}>  

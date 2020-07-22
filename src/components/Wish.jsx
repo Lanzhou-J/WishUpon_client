@@ -22,7 +22,7 @@ class Wish extends React.Component {
       }
     });
     const data = await response.json();
-    console.log(data.description)
+    // console.log(data.description)
     this.setState({ wishes: data});
   }
 
@@ -38,10 +38,12 @@ class Wish extends React.Component {
   }
 
   renderComments = () => {
-    return this.state.comments.comments.map((comment, index) => {
+    // console.log(this.state.comments)
+    return this.state.comments.map((comment, index) => {
       return (
         <div className="wish-index" key={index}>  
-          <p> {comment.content}</p>
+          <p> {comment.user.first_name}:{comment.content}</p>
+          <p>{comment.created_at}</p>
           <hr />
         </div>
       );
@@ -56,16 +58,17 @@ class Wish extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     const wish = this.state.wishes
     const comments = this.state.comments
     // console.log(comments)
     if(wish&&comments){
-      console.log(comments.comments)
+      // console.log(comments.comments)
       return (
         <div className="wish-view">
           <h1>Wish</h1>
           <h1>{wish.title}</h1>
+          <p>{wish.user.first_name}</p>
           <p>{wish.description}</p>
           <Link to={`/wishes/${wish.id}/edit`}>
             <button className="edit-back-delete-button" >Edit</button>
