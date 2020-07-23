@@ -2,11 +2,17 @@ import React from "react";
 
 class CreateWish extends React.Component {
   onInputChange = (event) => {
-    this.setState({
-      [event.target.id]: event.target.value,
-      user_id: 1
-    });
-    // console.log(this.state);
+    const key = event.target.id;    
+    if (event.target?.files) {
+      this.setState({
+        [key]: event.target.files[0]
+      })
+    } else {
+      this.setState({
+        [key]: event.target.value,
+      });
+    }
+    console.log(this.state);
     // console.log(this.props);
     // console.log(this.body);
   };
@@ -15,14 +21,16 @@ class CreateWish extends React.Component {
     event.preventDefault();
 
     const body = this.state;
-
+    const data = new FormData()
+    for (let key in body) {
+      data.append(`wish[${key}]`, body[key])
+    }
     await fetch("http://localhost:3000/wishes", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify(body),
+      body: data,
     });
     this.props.history.push("/wishes");
   };
@@ -32,7 +40,7 @@ class CreateWish extends React.Component {
     // console.log(localStorage.getItem("token"));
     return (
       <div className="form-container-wish" style={{ margin: "0 0 35px 0" }}>
-        <form className="wish-form" onSubmit={this.onFormSubmit}>
+        <form className="wish-form" onSubmit={this.onFormSubmit} encType="multipart/form-data">
           <h1>Add A Wish:</h1>
           <label htmlFor="title">Title:</label>
           <input
@@ -50,15 +58,9 @@ class CreateWish extends React.Component {
             id="description"
             onChange={this.onInputChange}
           />
-          {/* <label htmlFor="user_id">User:</label>
-          <input
-            className="user-input"
-            type="text"
-            name="user_id"
-            id="user_id"
-            onChange={this.onInputChange}
-          /> */}
           <br />
+          <label htmlFor="image">Image</label>
+          <input type="file" name="image" id="image" onChange={this.onInputChange}/>
           <input type="submit" value="Add Entry" />
         </form>
       </div>
