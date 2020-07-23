@@ -19,26 +19,17 @@ class CreateWish extends React.Component {
 
   onFormSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData()
 
-    for(let key in this.state){
-      data.append(`wish[${key}]`, this.state[key])
-    }
+    const body = this.state;
 
-
-    // const body = this.state;
-
-    const response = await fetch("http://localhost:3000/wishes", {
+    await fetch("http://localhost:3000/wishes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: data,
+      body: JSON.stringify(body),
     });
-    const {image, wish} = await response.json();
-    // console.log(image)
-    // console.log(wish.title)
     this.props.history.push("/wishes");
   };
 
