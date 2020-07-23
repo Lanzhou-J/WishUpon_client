@@ -74,6 +74,9 @@ class Wish extends React.Component {
       body: JSON.stringify(body),
     });
     window.location.reload();
+    // this.setState((state)=>{
+    //   return {comments: [...state.comments, ]}
+    // })
   };
 
   createComments = () => {
