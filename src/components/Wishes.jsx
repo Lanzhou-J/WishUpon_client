@@ -12,31 +12,42 @@ class Wishes extends React.Component {
       },
     });
     const data = await response.json();
-    this.setState({ wishes: data});
-    console.log(this.state);
+    this.setState({ wishes: data.wishes});
+    // console.log(this.state);
   };
 
   renderWishes = () => {
+    let newwishes = this.state.wishes
     // console.log(this.state)
-    return this.state.wishes.map((wish, index) => {
+    console.log(newwishes)
+    // if(this.state.wishes.length!==0){
+    return newwishes.map((wish, index) => {
       let keywords = []
       wish.keywords.forEach((word)=>{
         keywords.push(word.word)
       })
       // console.log(keywords)
       return (
-          <div className="card-wrapper" key={index}>
-            <div className="wish-index card" >  
-              <Link to={{ pathname: `/wishes/${wish.id}`}}> 
+          <div className="card-wrapper scene" key={index}>
+            <div className="wish-index card" >
+              <div className="card-face card-face-front">
+                <p>Keywords: {`${keywords} `}</p>
+                <div className="card-image">
+                </div>
+              </div>  
+              <div className="card-face card-face-back">
+                <Link to={{ pathname: `/wishes/${wish.id}`}}> 
                 <h3 className="wish-index-title">{wish.title}</h3>
                 </Link>
-                <p>Description: {wish.description}</p>
-                <p>Keywords: {`${keywords} `}</p>
-              </div>
-
+                <p>Description: {wish.description}</p> 
+                {/* <img src={wish.image} alt=""/> */}
+              </div>  
+            </div>
           </div>
       );
     });
+    // }
+
   };
 
   render() {

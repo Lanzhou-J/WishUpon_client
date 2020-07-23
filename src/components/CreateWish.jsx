@@ -21,14 +21,16 @@ class CreateWish extends React.Component {
     event.preventDefault();
 
     const body = this.state;
-
+    const data = new FormData()
+    for (let key in body) {
+      data.append(`wish[${key}]`, body[key])
+    }
     await fetch("http://localhost:3000/wishes", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify(body),
+      body: data,
     });
     this.props.history.push("/wishes");
   };
