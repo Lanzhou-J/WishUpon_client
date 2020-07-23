@@ -12,7 +12,7 @@ class CreateWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    // console.log(this.state);
+    console.log(this.state);
     // console.log(this.props);
     // console.log(this.body);
   };
