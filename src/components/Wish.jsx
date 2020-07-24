@@ -23,7 +23,7 @@ class Wish extends React.Component {
       }
     });
     const data = await response.json();
-    // console.log(data.wishes[0])
+    console.log(data.wishes[0])
     this.setState({ wishes: data.wishes[0]});
   }
 
@@ -85,7 +85,7 @@ class Wish extends React.Component {
       <div className="form-container-wish" style={{ margin: "0 0 35px 0" }}>
         <form className="wish-form" onSubmit={this.onCommentFormSubmit}>
           <h4>Add a comment:</h4>
-          <label htmlFor="content">Content:</label>
+          {/* <label htmlFor="content">Content: </label> */}
           <input
             className="wish-input"
             type="text"
@@ -123,26 +123,31 @@ class Wish extends React.Component {
           <div className="wish-container">
             {/* <h1>Wish</h1> */}
             <div className="name-container">
-              <p>{wish.user.first_name}</p>
+              <p>{wish.user}</p>
+              <div className="name-button-span">
+              </div>
+              <div className="button-wrapper">
+                <button>I can help!</button>
+              </div>
             </div>
             <div className="wish-image-container">
               <img src={wish.image} alt=""/>
             </div>
-            <div>
-            <div className="wish-wrapper">
-              <h1>{wish.title}</h1>
-              <p>Keywords: {`${keywords} `}</p>
-              <p>{wish.description}</p>
-              <Link to={`/wishes/${wish.id}/edit`}>
-                <button className="edit-back-delete-button" >Edit</button>
-              </Link>
-              <span onClick={() => this.deleteWish(wish.id)}>
-                <button className="edit-back-delete-button" >Delete</button>
-              </span>
-            </div>
-            <div className="like-comment-container">
-              {this.createComments()}
-            </div>
+            <div className="wish-bottom-container">
+              <div className="wish-wrapper">
+                <h1>{wish.title}</h1>
+                <p>Keywords: {`${keywords} `}</p>
+                <p>{wish.description}</p>
+                <Link to={`/wishes/${wish.id}/edit`}>
+                  <button className="edit-back-delete-button" >Edit</button>
+                </Link>
+                <span onClick={() => this.deleteWish(wish.id)}>
+                  <button className="edit-back-delete-button" >Delete</button>
+                </span>
+              </div>
+              <div className="like-comment-container">
+                {this.createComments()}
+              </div>
             </div>
           </div>
           <div className="comment-container">

@@ -1,4 +1,5 @@
 import React from "react";
+import "../stylesheets/CreateWish.scss"
 
 class CreateWish extends React.Component {
   onInputChange = (event) => {
@@ -61,7 +62,7 @@ class CreateWish extends React.Component {
           <br />
           <label htmlFor="image">Image</label>
           <input type="file" name="image" id="image" onChange={this.onInputChange}/>
-          <input type="submit" value="Add Entry" />
+          <input className="wish-submit" type="submit" value="Add Entry" />
         </form>
       </div>
     );

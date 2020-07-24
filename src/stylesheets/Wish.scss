@@ -5,10 +5,23 @@
   width: 100vw;
   .wish-container {
     // background-color: orange;
+    padding: 15px;
     width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .name-container {
+      display: flex;
+      width: 90%;
+      align-items: center;
+      p {
+        font-weight: bold;
+        font-size: 1.25em;
+      }
+      .name-button-span {
+        flex-grow: 1;
+      }
+    }
     .wish-image-container{
       width:80%;
       height:300px;
@@ -20,9 +33,13 @@
         width: 100%;
       }
     }
+    .wish-bottom-container {
+      width: 80%
+    }
   }
   .comment-container {
-    background-color: palegreen;
+    // background-color: palegreen;
     width: 50%;
+    padding: 15px;
   }
 }

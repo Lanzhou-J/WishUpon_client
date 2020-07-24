@@ -31,7 +31,9 @@ class EditWish extends React.Component {
         Authorization: `Bearer ${localStorage.getItem("token")}`       
       }
     });
-    const { title, description, user_id } = await response.json();
+    const data = await response.json();
+    console.log(data.wishes[0])
+    const { title, description, user_id } = data.wishes[0]
     this.setState({ title, user_id, description, loading: false });
   }
 
@@ -40,8 +42,8 @@ class EditWish extends React.Component {
     return (
       !loading && (
         <div className="container">
-          <h1>Edit a wish</h1>
           <form onSubmit={this.onFormSubmit}>
+            <h1>Edit a wish</h1>
             <label htmlFor="title">Title</label>
             <input
               type="text"
@@ -60,12 +62,13 @@ class EditWish extends React.Component {
             />
             <label htmlFor="description">Description</label>
             <textarea
+              className="wish-input"
               name="description"
               id="description"
               onChange={this.onInputChange}
               value={description}
             ></textarea>
-            <input type="submit" value="Submit" />
+            <input className="wish-submit" type="submit" value="Submit" />
           </form>
         </div>
       )
