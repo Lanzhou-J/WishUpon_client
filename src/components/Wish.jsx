@@ -83,11 +83,11 @@ class Wish extends React.Component {
   createComments = () => {
     return (
       <div className="form-container-wish" style={{ margin: "0 0 35px 0" }}>
-        <form className="wish-form" onSubmit={this.onCommentFormSubmit}>
+        <form className="comment-form" onSubmit={this.onCommentFormSubmit}>
           <h4>Add a comment:</h4>
           {/* <label htmlFor="content">Content: </label> */}
           <input
-            className="wish-input"
+            className="comment-input"
             type="text"
             name="content"
             id="content"

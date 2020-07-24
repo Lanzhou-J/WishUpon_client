@@ -6,30 +6,21 @@
   align-items: center;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-form label {
-  margin: 10px 0px;
-}
-
-form input {
-  height: 30px;
-  width: 450px;
-}
-
-form textarea {
-  /* resize: none; */
-  height: 80px;
-}
-
 .wish-form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  label {
+    margin: 10px 0px;
+  }
+  input {
+    height: 30px;
+    width: 450px;
+  }
+  textarea {
+    /* resize: none; */
+    height: 80px;
+  }
 }
 
 .wish-input {

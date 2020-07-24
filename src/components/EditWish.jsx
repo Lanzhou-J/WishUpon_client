@@ -42,7 +42,7 @@ class EditWish extends React.Component {
     return (
       !loading && (
         <div className="container">
-          <form onSubmit={this.onFormSubmit}>
+          <form className="wish-form" onSubmit={this.onFormSubmit}>
             <h1>Edit a wish</h1>
             <label htmlFor="title">Title</label>
             <input
