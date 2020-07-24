@@ -31,24 +31,30 @@ class Wishes extends React.Component {
           <div className="card-wrapper flip-card" key={index}>
             <div className="wish-index card flip-card-inner" >
               <div className="card-face flip-card-front">
-                <p> {`${keywords} `}</p>
+                <p className="card-keywords"> {`${keywords} `}</p>
                 <div className="card-image">
                   <img src={wish.image} alt=""/>
                 </div>
               </div>  
-              <div className="card-face flip-card-back">
-                <Link to={{ pathname: `/wishes/${wish.id}`}}> 
-                <h3 className="wish-index-title">{wish.title}</h3>
-                </Link>
-                <p>Description: {wish.description}</p> 
 
-              </div>  
+                <div className="card-face flip-card-back">
+                <Link to={{ pathname: `/wishes/${wish.id}`}} style={{color: 'inherit', textDecoration: 'none' }}>
+                  <div className="card-text">
+                  <h3 className="wish-index-title">{wish.title}</h3>
+                  <p>Description: {wish.description}</p>
+                  </div>
+                  </Link>
+                  <div className="card-like-wrapper">
+                    <div className="card-like">
+                      <img src="heart.svg" alt="hearlogo" height="30" width="30"/>
+                    </div>
+                    <p>Like</p>
+                  </div> 
+                </div> 
             </div>
           </div>
-      );
+       );
     });
-    // }
-
   };
 
   render() {
