@@ -28,19 +28,20 @@ class Wishes extends React.Component {
       })
       // console.log(keywords)
       return (
-          <div className="card-wrapper scene" key={index}>
-            <div className="wish-index card" >
-              <div className="card-face card-face-front">
-                <p>Keywords: {`${keywords} `}</p>
+          <div className="card-wrapper flip-card" key={index}>
+            <div className="wish-index card flip-card-inner" >
+              <div className="card-face flip-card-front">
+                <p> {`${keywords} `}</p>
                 <div className="card-image">
+                  <img src={wish.image} alt=""/>
                 </div>
               </div>  
-              <div className="card-face card-face-back">
+              <div className="card-face flip-card-back">
                 <Link to={{ pathname: `/wishes/${wish.id}`}}> 
                 <h3 className="wish-index-title">{wish.title}</h3>
                 </Link>
                 <p>Description: {wish.description}</p> 
-                {/* <img src={wish.image} alt=""/> */}
+
               </div>  
             </div>
           </div>
