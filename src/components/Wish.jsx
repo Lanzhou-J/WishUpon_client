@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../stylesheets/Wish.scss"
 // import moment from 'moment';
 
 class Wish extends React.Component {
@@ -22,8 +23,8 @@ class Wish extends React.Component {
       }
     });
     const data = await response.json();
-    console.log(data.keywords)
-    this.setState({ wishes: data});
+    // console.log(data.wishes[0])
+    this.setState({ wishes: data.wishes[0]});
   }
 
   showComment = async(id) => {
@@ -119,22 +120,38 @@ class Wish extends React.Component {
       })
       return (
         <div className="wish-view">
-          <h1>Wish</h1>
-          <h1>{wish.title}</h1>
-          <p>{wish.user.first_name}</p>
-          <p>{wish.description}</p>
-          <p>Keywords: {`${keywords} `}</p>
-          <Link to={`/wishes/${wish.id}/edit`}>
-            <button className="edit-back-delete-button" >Edit</button>
-          </Link>
-          <span onClick={() => this.deleteWish(wish.id)}>
-            <button className="edit-back-delete-button" >Delete</button>
-          </span>
-          <div className="comments">
-           <h3>Comments:</h3>
-          {this.renderComments()}
+          <div className="wish-container">
+            {/* <h1>Wish</h1> */}
+            <div className="name-container">
+              <p>{wish.user.first_name}</p>
+            </div>
+            <div className="wish-image-container">
+              <img src={wish.image} alt=""/>
+            </div>
+            <div>
+            <div className="wish-wrapper">
+              <h1>{wish.title}</h1>
+              <p>Keywords: {`${keywords} `}</p>
+              <p>{wish.description}</p>
+              <Link to={`/wishes/${wish.id}/edit`}>
+                <button className="edit-back-delete-button" >Edit</button>
+              </Link>
+              <span onClick={() => this.deleteWish(wish.id)}>
+                <button className="edit-back-delete-button" >Delete</button>
+              </span>
+            </div>
+            <div className="like-comment-container">
+              {this.createComments()}
+            </div>
+            </div>
           </div>
-          {this.createComments()}
+          <div className="comment-container">
+            <div className="comments">
+            <h3>Comments:</h3>
+            {this.renderComments()}
+            </div>
+          </div>
+
         </div>
       );
     }else{

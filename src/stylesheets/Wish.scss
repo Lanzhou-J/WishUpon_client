@@ -1,0 +1,28 @@
+.wish-view {
+  display: flex;
+  // background-color: palegoldenrod;
+  height: 100vh;
+  width: 100vw;
+  .wish-container {
+    // background-color: orange;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .wish-image-container{
+      width:80%;
+      height:300px;
+      background-image: url(../assets/undraw_wishes_icyp.png);
+      background-position: center;
+      background-size: cover;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
+    }
+  }
+  .comment-container {
+    background-color: palegreen;
+    width: 50%;
+  }
+}
