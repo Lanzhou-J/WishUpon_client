@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import "../stylesheets/Dashboard.scss"
 
 class Dashboard extends React.Component {
-  state = { wishes: [] };
+  state = { wishes: [], user: null };
 
   getUserWishes = async () => {
     const response = await fetch("http://localhost:3000/wishes/current_user", {
@@ -11,16 +12,24 @@ class Dashboard extends React.Component {
       },
     });
     const data = await response.json();
-    this.setState({ wishes: data.wishes});
+    this.setState({ wishes: data});
     console.log(this.state);
   };
 
-  renderUserWishes = () => {
-    let newwishes = this.state.wishes
-    // console.log(this.state)
-    console.log(newwishes)
-    // if(this.state.wishes.length!==0){
-    return newwishes.map((wish, index) => {
+  getUserInfo = async () => {
+    const response = await fetch("http://localhost:3000/users/current_user", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const data = await response.json();
+    this.setState({ user: data});
+    // console.log(this.state);
+  };
+
+  renderWishesCard = (wishes) => {
+    if(wishes){
+    return wishes.map((wish, index) => {
       let keywords = []
       wish.keywords.forEach((word)=>{
         keywords.push(word.word)
@@ -54,18 +63,74 @@ class Dashboard extends React.Component {
           </div>
        );
     });
-  };
+    }else{
+      return(<></>)
+    }
+
+  }
+
+  // renderUserWishes = () => {
+  //   let newwishes = this.state.wishes
+  //   // console.log(this.state)
+  //   console.log(newwishes)
+  //   console.log(newwishes.not_completed_wishes)
+  //   console.log(newwishes.completed_wishes)
+  // };
+
+  renderUserInfo = () => {
+    const user = this.state.user
+    if(user){
+      const hobbies=[];
+      user.hobbies.forEach((hobby)=>{
+        hobbies.push(hobby.name)
+      })
+      // console.log(hobbies)
+      return(
+        <div className="userinfo">
+          <div className="profilepic">
+            <img src="picture.svg" alt=""/>
+          </div>
+          <p className="Username">{user.user.first_name}</p>
+          <p className="userinfo-text">{user.country.name}</p>
+          <p className="userinfo-text">Hobbies: {`${hobbies} `}</p>
+          <Link style={{marginLeft:'20px'}} to="/">Edit profile</Link>
+        </div>
+      )
+    }
+  }
 
   async componentDidMount() {
     this.getUserWishes();
+    this.getUserInfo();
   }  
 
   render() {
+    let newwishes = this.state.wishes
+    // console.log(this.state)
+    console.log(newwishes)
+    const not_completed_wishes = newwishes.not_completed_wishes
+    const completed_wishes = newwishes.completed_wishes
     return (
       <div className="wish-index-container">
-        <h1 className="title">User Dashboard: my wishes</h1>
-        <div className="card-container">
-            {this.renderUserWishes()}
+        {/* <h1 className="title">User Dashboard: my wishes</h1> */}
+        <div className="userinfo-container">
+          {this.renderUserInfo()}
+        </div>
+        <div className="wishes-box">
+        <div className="left">
+          <h3>My Wishlist</h3>
+          <div className="not-completed-wishes">
+            <div className="card-container">
+              {this.renderWishesCard(not_completed_wishes)}
+            </div>
+          </div>
+        </div>
+        <div className="right">
+          <h3>Completed wishes!</h3>
+          <div className="completed-wishes">
+            {this.renderWishesCard(completed_wishes)}
+          </div>
+        </div>
         </div>
       </div>
     )
