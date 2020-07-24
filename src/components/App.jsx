@@ -9,7 +9,7 @@ import Wish from "./Wish";
 import CreateWish from "./CreateWish";
 import EditWish from "./EditWish";
 import ProtectedRoute from "./ProtectedRoute";
-import Secrets from "./Secrets";
+import Dashboard from "./Dashboard";
 import Navbar from "../shared/Navbar";
 import "../stylesheets/App.scss";
 import Room from "../shared/Room";
@@ -21,7 +21,7 @@ class App extends React.Component {
       <>
         <Navbar />
         <Switch>
-          <ProtectedRoute exact path="/secrets" component={Secrets} />
+          <ProtectedRoute exact path="/dashboard" component={Dashboard} />
           <ProtectedRoute exact path="/wishes/create" component={CreateWish} />
           <ProtectedRoute exact path="/wishes/:id/edit" component={EditWish} />
           <Route exact path="/wishes/:id" component={Wish} />

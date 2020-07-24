@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-class Secrets extends React.Component {
+class Dashboard extends React.Component {
   state = { wishes: [] };
 
   getUserWishes = async () => {
@@ -72,4 +72,4 @@ class Secrets extends React.Component {
   }
 }
 
-export default Secrets
+export default Dashboard

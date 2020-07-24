@@ -16,7 +16,7 @@ const NavBar = () => {
           <Link to="/">Home</Link>
           <Link to="/wishes">Wishes</Link>
           <Link to="/wishes/create">Create Wish</Link>
-          <Link to="/secrets">Secrets</Link>
+          <Link to="/dashboard">Dashboard</Link>
           <a href="#"
             onClick={() => {
               localStorage.removeItem("token");
