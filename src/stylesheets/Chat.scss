@@ -1,0 +1,38 @@
+// This SCSS is only for testing purposes and should be fixed, as it looks bad.
+
+.messagesArea {
+  // Should remove - Only to see where the div starts and ends
+  background-color: cornflowerblue;
+}
+
+// New Messages
+.newConversationForm {
+  background-color: crimson;
+  //   height: 100vh;
+  overflow-y: hidden;
+}
+
+.newConversationForm .button {
+  background-color: green;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  height: 45px;
+}
+
+.newConversationForm .form {
+  padding: 20px;
+  border: black;
+  background-color: lightcoral;
+  border-radius: 2px;
+  //   padding: 5px 12px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  //   height: 45px;
+}

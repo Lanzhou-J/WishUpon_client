@@ -30,7 +30,7 @@ class Login extends React.Component {
       } else {
         const { jwt } = await response.json();
         localStorage.setItem("token", jwt);
-        this.props.history.push("/secrets");
+        this.props.history.push("/wishes");
         window.location.reload();
       }
     } catch (err) {
@@ -51,7 +51,7 @@ class Login extends React.Component {
         </div>
       
         <div className="form-container">
-          <h1 className="login-h1">Welcome back</h1>
+          <h1 className="text-wrapper login-h1">Welcome back</h1>
           {errMessage && <span>{errMessage}</span>}
           <form className="loginform" onSubmit={this.onFormSubmit}>
             <input className="form-input"
