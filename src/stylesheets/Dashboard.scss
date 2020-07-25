@@ -1,0 +1,42 @@
+.userinfo-container {
+  // background-color: orange;
+  .userinfo{
+    display: flex;
+    align-items: center;
+    p {
+      margin: 0 5px 0 30px;
+    }
+    .Username {
+      font-size:1.3em;
+      font-weight: bold;
+    }
+    .userinfo-text {
+      color: gray;
+    }
+
+    .profilepic {
+      width: 50px;
+      height: 50px;
+      margin: 0 10px 0 40px;
+    }
+  }
+}
+.wishes-box {
+  display:flex;
+  margin-top: 30px;
+  .left{
+    // background-color: palegreen;
+    width:50%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid gray;
+  }
+  .right{
+    // background-color: pink;
+    width:50%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
