@@ -2,7 +2,6 @@
 describe("login form", () => {
   it("renders email and password inputs", () => {
     cy.visit("/login");
-    // test code
   });
 });
 
@@ -31,6 +30,7 @@ describe("tries to log in", () => {
   });
 });
 
+// This will sign up a new user, with a email address, password and country
 describe("Sign up a new user", () => {
   it("should go to the signup page", () => {
     cy.visit("/");
