@@ -21,39 +21,30 @@ describe("tries to log in and log out", () => {
 });
 
 // This test will try to log a new user in and will fail. It should send them to sign up
-// describe("tries to log in", () => {
-//   it("logs in with incorrect creds and sends user to sign up", () => {
-//     cy.visit("/");
-//     cy.findByText(/Login/).click();
-//     cy.get("#email").type("harrison_and_ed@coder.com");
-//     cy.get("#password").type("weforgot");
-//     cy.get("#login-button").click();
-//     cy.url().should("eql", "http://localhost:8080/signup");
-//   });
-// });
+describe("tries to log in", () => {
+  it("logs in with incorrect creds and sends user to sign up", () => {
+    cy.visit("/");
+    cy.findByText(/Login/).click();
+    cy.get("#email").type("harrison_and_ed@coder.com");
+    cy.get("#password").type("weforgot");
+    cy.get("#login-button").click();
+  });
+});
 
-// describe("clicking on login", () => {
-//   it("should go to the login page", () => {
-//     cy.visit("/");
-//     cy.findByText(/Login/).click();
-//     cy.url().should("include", "/login");
-//   });
-//   it("should render email and password inputs", () => {
-//     cy.get("#email").should("exist");
-//     cy.get("#password").should("exist");
-//   });
-// });
-
-// describe("When a user clicks on the login button", () => {
-//   it("should navigate to the login page", () => {
-//     cy.visit("/login");
-//     cy.get("#email").should("contain.text", "login");
-//     cy.get("#password").should("contain.text", "login");
-//     cy.get("#login-button").should("contain.text", "login");
-//     cy.url().should("eql", "http://localhost:8080/secret");
-//   });
-// });
-
-// describe("When a user logs in with the correct credentials", () => {
-//   before(() => {});
-// });
+describe("Sign up a new user", () => {
+  it("should go to the signup page", () => {
+    cy.visit("/");
+    cy.findByText(/Sign Up/).click();
+    cy.url().should("include", "/sign-up");
+  });
+  it("should enter an awesome email and a clever password", () => {
+    cy.get("#email").should("exist");
+    cy.get("#email").type("awesomeAmy92@gmail.com");
+    cy.get("#password").type("password");
+    cy.get("#country_id").type("New Zealand");
+    cy.get("#login-button").click();
+    // This needs to be fixed, as it is looking for a number for the country_id.
+    // Needs to be a string. Unless we have it as a drop down
+    cy.url().should("eql", "http://localhost:8080/wishes");
+  });
+});
