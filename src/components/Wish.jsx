@@ -12,7 +12,7 @@ class Wish extends React.Component {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    window.alert("Deleted The Post!");
+    window.alert("Are You Sure You Want To Delete This Wish?");
     this.props.history.push("/wishes");
   };
 
@@ -99,7 +99,11 @@ class Wish extends React.Component {
             id="content"
             onChange={this.onInputChange}
           />
-          <input type="submit" value="Add A Comment" />
+          <input
+            type="submit"
+            data-testid="comments-button"
+            value="Add A Comment"
+          />
         </form>
       </div>
     );
