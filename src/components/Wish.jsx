@@ -130,8 +130,11 @@ class Wish extends React.Component {
             <div className="name-container">
               <p>{wish.user}</p>
               <div className="name-button-span"></div>
+
               <div className="button-wrapper">
-                <button>I can help!</button>
+                <Link to={`/room`}>
+                  <button>I can help!</button>
+                </Link>
               </div>
             </div>
             <div className="wish-image-container">
