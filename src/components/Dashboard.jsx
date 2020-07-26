@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../stylesheets/Dashboard.scss"
 
 class Dashboard extends React.Component {
-  state = { wishes: [], user: null };
+  state = { wishes: [], user: null, completed_wishes: [], not_completed_wishes: [] };
 
   getUserWishes = async () => {
     const response = await fetch("http://localhost:3000/wishes/current_user", {
@@ -12,7 +12,7 @@ class Dashboard extends React.Component {
       },
     });
     const data = await response.json();
-    this.setState({ wishes: data});
+    this.setState({ wishes: data, completed_wishes: data.completed_wishes.reverse(), not_completed_wishes: data.not_completed_wishes.reverse()});
     console.log(this.state);
   };
 
@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
               <div className="card-face flip-card-front">
                 <p className="card-keywords"> {`${keywords} `}</p>
                 <div className="card-image">
-                  <img src={wish.image} alt=""/>
+                  <img id="card-pic" src={wish.image} alt=""/>
                 </div>
               </div>  
 
@@ -105,35 +105,42 @@ class Dashboard extends React.Component {
   }  
 
   render() {
-    let newwishes = this.state.wishes
+    // let newwishes = this.state.wishes
     // console.log(this.state)
-    console.log(newwishes)
-    const not_completed_wishes = newwishes.not_completed_wishes
-    const completed_wishes = newwishes.completed_wishes
-    return (
-      <div className="wish-index-container">
-        {/* <h1 className="title">User Dashboard: my wishes</h1> */}
-        <div className="userinfo-container">
-          {this.renderUserInfo()}
-        </div>
-        <div className="wishes-box">
-        <div className="left">
-          <h3>My Wishlist</h3>
-          <div className="not-completed-wishes">
-            <div className="card-container">
-              {this.renderWishesCard(not_completed_wishes)}
+    // console.log(newwishes)
+    const not_completed_wishes = this.state.not_completed_wishes;
+    const completed_wishes = this.state.completed_wishes;
+
+    // if(newwishes.length!==0){
+    //   const completed_wishes = newwishes.completed_wishes.reverse();
+    //   const not_completed_wishes = newwishes.not_completed_wishes.reverse();
+      return (
+        <div className="wish-index-container">
+          {/* <h1 className="title">User Dashboard: my wishes</h1> */}
+          <div className="userinfo-container">
+            {this.renderUserInfo()}
+          </div>
+          <div className="wishes-box">
+          <div className="left">
+            <h3>My Wishlist</h3>
+            <div className="not-completed-wishes">
+              <div className="card-container">
+                {this.renderWishesCard(not_completed_wishes)}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="right">
-          <h3>Completed wishes!</h3>
-          <div className="completed-wishes">
-            {this.renderWishesCard(completed_wishes)}
+          <div className="right">
+            <h3>Completed wishes!</h3>
+            <div className="completed-wishes">
+              {this.renderWishesCard(completed_wishes)}
+            </div>
+          </div>
           </div>
         </div>
-        </div>
-      </div>
-    )
+      )
+    // }else{
+    //   return(<></>)
+    // }
   }
 }
 
