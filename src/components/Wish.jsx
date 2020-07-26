@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../stylesheets/Wish.scss"
+import "../stylesheets/Wish.scss";
 // import moment from 'moment';
 
 class Wish extends React.Component {
@@ -9,7 +9,7 @@ class Wish extends React.Component {
     await fetch(`http://localhost:3000/wishes/${id}`, {
       method: "DELETE",
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     window.alert("Deleted The Post!");
@@ -19,31 +19,37 @@ class Wish extends React.Component {
   showWish = async (id) => {
     const response = await fetch(`http://localhost:3000/wishes/${id}`, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
     const data = await response.json();
-    console.log(data.wishes[0])
-    this.setState({ wishes: data.wishes[0]});
-  }
+    console.log(data.wishes[0]);
+    this.setState({ wishes: data.wishes[0] });
+  };
 
-  showComment = async(id) => {
-    const response = await fetch(`http://localhost:3000/wishes/${id}/comments`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+  showComment = async (id) => {
+    const response = await fetch(
+      `http://localhost:3000/wishes/${id}/comments`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       }
-    });
+    );
     const data = await response.json();
     // console.log(data)
-    this.setState({ comments: data});
-  }
+    this.setState({ comments: data });
+  };
 
   renderComments = () => {
     // console.log(this.state.comments)
     return this.state.comments.map((comment, index) => {
       return (
-        <div className="wish-index" key={index}>  
-          <p> {comment.user.first_name}:{comment.content}</p>
+        <div className="wish-index" key={index}>
+          <p>
+            {" "}
+            {comment.user.first_name}:{comment.content}
+          </p>
           <p>{comment.created_at}</p>
           <hr />
         </div>
@@ -53,18 +59,18 @@ class Wish extends React.Component {
 
   onInputChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
     console.log(this.state);
     // console.log(this.props);
     // console.log(this.body);
   };
 
-  onCommentFormSubmit = async(event) => {
+  onCommentFormSubmit = async (event) => {
     const b = this.props.match.params.id;
     event.preventDefault();
 
-    const body = {content: this.state.content};
+    const body = { content: this.state.content };
 
     await fetch(`http://localhost:3000/wishes/${b}/comments`, {
       method: "POST",
@@ -93,45 +99,43 @@ class Wish extends React.Component {
             id="content"
             onChange={this.onInputChange}
           />
-          <input type="submit" value="Add Entry" />
+          <input type="submit" value="Add A Comment" />
         </form>
       </div>
-    )   
-  }
+    );
+  };
 
-  componentDidMount(){
+  componentDidMount() {
     const b = this.props.match.params.id;
     // console.log(b)
-    this.showWish(b)
-    this.showComment(b)
-    
+    this.showWish(b);
+    this.showComment(b);
   }
 
   render() {
     // console.log(this.state)
-    const wish = this.state.wishes
-    const comments = this.state.comments
+    const wish = this.state.wishes;
+    const comments = this.state.comments;
     // console.log(comments)
-    if(wish&&comments){
+    if (wish && comments) {
       // console.log(comments.comments)
-      let keywords = []
-      wish.keywords.forEach((word)=>{
-        keywords.push(word.word)
-      })
+      let keywords = [];
+      wish.keywords.forEach((word) => {
+        keywords.push(word.word);
+      });
       return (
         <div className="wish-view">
           <div className="wish-container">
             {/* <h1>Wish</h1> */}
             <div className="name-container">
               <p>{wish.user}</p>
-              <div className="name-button-span">
-              </div>
+              <div className="name-button-span"></div>
               <div className="button-wrapper">
                 <button>I can help!</button>
               </div>
             </div>
             <div className="wish-image-container">
-              <img src={wish.image} alt=""/>
+              <img src={wish.image} alt="" />
             </div>
             <div className="wish-bottom-container">
               <div className="wish-wrapper">
@@ -139,10 +143,20 @@ class Wish extends React.Component {
                 <p>Keywords: {`${keywords} `}</p>
                 <p>{wish.description}</p>
                 <Link to={`/wishes/${wish.id}/edit`}>
-                  <button className="edit-back-delete-button" >Edit</button>
+                  <button
+                    className="edit-back-delete-button"
+                    data-testid="editButton"
+                  >
+                    Edit
+                  </button>
                 </Link>
                 <span onClick={() => this.deleteWish(wish.id)}>
-                  <button className="edit-back-delete-button" >Delete</button>
+                  <button
+                    className="edit-back-delete-button"
+                    data-testid="deleteButton"
+                  >
+                    Delete
+                  </button>
                 </span>
               </div>
               <div className="like-comment-container">
@@ -152,18 +166,14 @@ class Wish extends React.Component {
           </div>
           <div className="comment-container">
             <div className="comments">
-            <h3>Comments:</h3>
-            {this.renderComments()}
+              <h3>Comments:</h3>
+              {this.renderComments()}
             </div>
           </div>
-
         </div>
       );
-    }else{
-      return(
-        <>
-        </>
-      )
+    } else {
+      return <></>;
     }
   }
 }
