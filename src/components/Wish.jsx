@@ -4,7 +4,7 @@ import "../stylesheets/Wish.scss"
 // import moment from 'moment';
 
 class Wish extends React.Component {
-  state = { wishes: null, comments: null };
+  state = { wishes: null, comments: null, count: 0};
   deleteWish = async (id) => {
     await fetch(`http://localhost:3000/wishes/${id}`, {
       method: "DELETE",
@@ -24,7 +24,7 @@ class Wish extends React.Component {
     });
     const data = await response.json();
     console.log(data.wishes[0])
-    this.setState({ wishes: data.wishes[0]});
+    this.setState({ wishes: data.wishes[0], count: data.wishes[0].like});
   }
 
   showComment = async(id) => {
@@ -99,6 +99,24 @@ class Wish extends React.Component {
     )   
   }
 
+  incrementMe = async() => {
+    const id = this.props.match.params.id;
+    let newCount = this.state.count + 1
+    this.setState({
+      count: newCount
+    })
+
+    let like = this.state.count + 1;
+    await fetch(`http://localhost:3000/wishes/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ like })
+    });
+  }
+
   componentDidMount(){
     const b = this.props.match.params.id;
     // console.log(b)
@@ -138,6 +156,7 @@ class Wish extends React.Component {
                 <h1>{wish.title}</h1>
                 <p>Keywords: {`${keywords} `}</p>
                 <p>{wish.description}</p>
+                <button onClick={this.incrementMe}>❤ Likes: {this.state.count}</button>
                 <Link to={`/wishes/${wish.id}/edit`}>
                   <button className="edit-back-delete-button" >Edit</button>
                 </Link>
