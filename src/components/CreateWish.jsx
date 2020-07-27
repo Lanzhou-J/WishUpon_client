@@ -1,11 +1,11 @@
 import React from "react";
 import "../stylesheets/CreateWish.scss";
 // import Select from "react-select";
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 // import { colourOptions } from "./data";
 
 class CreateWish extends React.Component {
-  // state = {selectedOption:null}
+  state = {keywords: []}
 
   onInputChange = (event) => {
     const key = event.target.id;
@@ -23,14 +23,28 @@ class CreateWish extends React.Component {
     // console.log(this.body);
   };
 
+  handleSelectChange = (keywords) => {
+    this.setState({keywords})
+    console.log(`Option selected:`, keywords);
+    // selectedOption.forEach((option, index)=>{
+    //   this.setState({[index]: option.value.word})
+    // })
+  }
+
   onFormSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(this.state)
     const body = this.state;
     const data = new FormData();
     for (let key in body) {
       data.append(`wish[${key}]`, body[key]);
     }
+
+    body.keywords.forEach((word,index)=>{
+      data.append(`wish[keyword${index+1}]`, word.label);
+    })
+
+    console.log(data)
     await fetch("http://localhost:3000/wishes", {
       method: "POST",
       headers: {
@@ -49,31 +63,35 @@ class CreateWish extends React.Component {
     });
     const data = await response.json();
     this.setState({ keywordsdata: data });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   renderKeywords = () => {
-    if (this.state) {
+    if (this.state.keywordsdata) {
       let keywordsarr = [];
-      this.state.keywordsdata.keywords.forEach((keyword,index)=>{
-        keywordsarr.push({value: keyword, label: keyword.word, index:index})
-      })
-      console.log(keywordsarr)
+      this.state.keywordsdata.keywords.forEach((keyword, index) => {
+        keywordsarr.push({ value: keyword, label: keyword.word, index: index });
+      });
+      // console.log(keywordsarr);
+
       return (
         <div style={{ width: "250px" }}>
           <CreatableSelect
+            value = {this.state.keywords}
             id="keyword1"
-            // value={selectedOption}
+            // value={selectedValue}
             menuPlacement="auto"
             menuPosition="fixed"
             // defaultValue={[colourOptions[2], colourOptions[3]]}
             isMulti
             name="colors"
             options={keywordsarr}
-            // onChange={this.onInputChange}
+            onChange={this.handleSelectChange}
             className="basic-multi-select"
             classNamePrefix="select"
           />
+          {/* <br />
+          <b>Selected Value:</b> */}
         </div>
       );
     } else {
@@ -83,6 +101,7 @@ class CreateWish extends React.Component {
 
   componentDidMount() {
     this.getKeywordsData();
+    console.log(this.state)
   }
   render() {
     // console.log(this.state);
@@ -169,31 +188,6 @@ class CreateWish extends React.Component {
               </label>
             </div>
           </div>
-
-          <label htmlFor="keyword1">Keyword 1:</label>
-          <input
-            className="wish-input"
-            type="text"
-            name="keyword"
-            id="keyword1"
-            onChange={this.onInputChange}
-          />
-          <label htmlFor="keyword2">Keyword 2:</label>
-          <input
-            className="wish-input"
-            type="text"
-            name="keyword"
-            id="keyword2"
-            onChange={this.onInputChange}
-          />
-          <label htmlFor="keyword3">Keyword 3:</label>
-          <input
-            className="wish-input"
-            type="text"
-            name="keyword"
-            id="keyword3"
-            onChange={this.onInputChange}
-          />
           <h3>Select from existed keywords:</h3>
 
           <div className="keywordsdata-container">{this.renderKeywords()}</div>
