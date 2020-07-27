@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
     });
     const data = await response.json();
     this.setState({ wishes: data, completed_wishes: data.completed_wishes.reverse(), not_completed_wishes: data.not_completed_wishes.reverse()});
-    // console.log(this.state);
+    console.log(this.state);
   };
 
   getUserInfo = async () => {
@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
                     <div className="card-like">
                       <img src="heart.svg" alt="hearlogo" height="30" width="30"/>
                     </div>
-                    <p>Like</p>
+                    <p>Like:{wish.like}</p>
                   </div> 
                 </div> 
             </div>
@@ -66,7 +66,6 @@ class Dashboard extends React.Component {
     }else{
       return(<></>)
     }
-
   }
 
   // renderUserWishes = () => {

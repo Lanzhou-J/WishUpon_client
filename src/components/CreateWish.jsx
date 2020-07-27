@@ -18,6 +18,12 @@ class CreateWish extends React.Component {
     // console.log(this.body);
   };
 
+  // handleOptionChange = changeEvent => {
+  // this.setState({
+  //   selectedOption: changeEvent.target.value
+  // });
+  // };
+
   onFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -63,22 +69,61 @@ class CreateWish extends React.Component {
             id="description"
             onChange={this.onInputChange}
           />
-          <label htmlFor="is_secret">Is this a secret wish? (true/false)</label>
-          <input
-            className="wish-input"
-            type="text"
-            name="is_secret"
-            id="is_secret"
-            onChange={this.onInputChange}
-          />
-          <label htmlFor="is_anonymous">Is this an anonymous wish? (true/false)</label>
-          <input
-            className="wish-input"
-            type="text"
-            name="is_anonymous"
-            id="is_anonymous"
-            onChange={this.onInputChange}
-          />
+          <label htmlFor="is_secret">Is this a secret wish?</label>
+          <div className="is_secret">
+            <label>
+              <input
+                type="radio"
+                name="is_secret"
+                id="is_secret"
+                value="true"
+                className="form-check-input"
+                onChange={this.onInputChange}
+              />
+              true
+            </label>
+          </div>
+          <div className="is_secret">
+            <label>
+              <input
+                type="radio"
+                name="is_secret"
+                id="is_secret"
+                value="false"
+                className="form-check-input"
+                onChange={this.onInputChange}
+              />
+              false
+            </label>
+          </div>
+
+          <label htmlFor="is_anonymous">Is this an anonymous wish?</label>
+          <div className="is_anonymous">
+            <label>
+              <input
+                type="radio"
+                name="is_anonymous"
+                id="is_anonymous"
+                value="true"
+                className="form-check-input"
+                onChange={this.onInputChange}
+              />
+              true
+            </label>
+          </div>
+          <div className="is_anonymous">
+            <label>
+              <input
+                type="radio"
+                name="is_anonymous"
+                id="is_anonymous"
+                value="false"
+                className="form-check-input"
+                onChange={this.onInputChange}
+              />
+              false
+            </label>
+          </div>
           <label htmlFor="keyword1">Keyword 1:</label>
           <input
             className="wish-input"
