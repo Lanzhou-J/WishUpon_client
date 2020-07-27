@@ -13,10 +13,6 @@
   label {
     margin: 10px 0px;
   }
-  input {
-    height: 30px;
-    width: 450px;
-  }
   textarea {
     /* resize: none; */
     height: 80px;
@@ -24,11 +20,24 @@
 }
 
 .wish-input {
-  width: 450px;
+  height: 30px;
+  width: 50vw;
+  min-width: 240px;
   text-align: center;
   font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .wish-submit {
   margin-top: 20px;
+}
+
+.radiobutton-container {
+  display: flex;
+  align-items: center;
+}
+
+.keywordsdata-container {
+  display: flex;
+  // width: 50vw;
+  background-color: orange;
 }

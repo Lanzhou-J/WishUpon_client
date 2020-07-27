@@ -12,14 +12,13 @@ class Wishes extends React.Component {
       },
     });
     const data = await response.json();
-    this.setState({ wishes: data.wishes});
+    this.setState({ wishes: data.wishes.reverse()});
     // console.log(this.state);
   };
 
   renderWishes = () => {
-    let newwishes = this.state.wishes
-    // console.log(this.state)
-    console.log(newwishes)
+    let newwishes = this.state.wishes;
+    // console.log(newwishes)
     // if(this.state.wishes.length!==0){
     return newwishes.map((wish, index) => {
       let keywords = []
@@ -33,7 +32,7 @@ class Wishes extends React.Component {
               <div className="card-face flip-card-front">
                 <p className="card-keywords"> {`${keywords} `}</p>
                 <div className="card-image">
-                  <img src={wish.image} alt=""/>
+                    <img id="card-pic" src={wish.image} alt=""/>
                 </div>
               </div>  
 
@@ -41,14 +40,14 @@ class Wishes extends React.Component {
                 <Link to={{ pathname: `/wishes/${wish.id}`}} style={{color: 'inherit', textDecoration: 'none' }}>
                   <div className="card-text">
                   <h3 className="wish-index-title">{wish.title}</h3>
-                  <p>Description: {wish.description}</p>
+                  <p id="card-paragraph">Description: {wish.description}</p>
                   </div>
                   </Link>
                   <div className="card-like-wrapper">
                     <div className="card-like">
                       <img src="heart.svg" alt="hearlogo" height="30" width="30"/>
                     </div>
-                    <p>Like</p>
+                    <p>Like:{wish.like}</p>
                   </div> 
                 </div> 
             </div>
@@ -60,7 +59,7 @@ class Wishes extends React.Component {
   render() {
     return (
       <div className="wish-index-container">
-          <h1 className="title">Wishes</h1>
+          <h1 className="title">Wishing wall</h1>
           <div className="card-container">
               {this.renderWishes()}
           </div>

@@ -1,4 +1,56 @@
 // This SCSS is only for testing purposes and should be fixed, as it looks bad.
+.conversationsList {
+  display: flex;
+  background-color: palegoldenrod;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .wish-container {
+    // background-color: orange;
+    padding: 15px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .name-container {
+      display: flex;
+      width: 90%;
+      align-items: center;
+      p {
+        font-weight: bold;
+        font-size: 1.25em;
+      }
+      .name-button-span {
+        flex-grow: 1;
+      }
+    }
+    .wish-image-container {
+      width: 80%;
+      height: 300px;
+      background-image: url(../assets/undraw_wishes_icyp.png);
+      background-position: center;
+      background-size: cover;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
+    }
+    .wish-bottom-container {
+      width: 80%;
+    }
+  }
+  .comment-container {
+    // background-color: palegreen;
+    width: 50%;
+    padding: 15px;
+  }
+}
+
+// Original section
 
 .messagesArea {
   // Should remove - Only to see where the div starts and ends
@@ -7,32 +59,31 @@
 
 // New Messages
 .newConversationForm {
-  background-color: crimson;
+  // background-color: crimson;
   //   height: 100vh;
   overflow-y: hidden;
 }
 
 .newConversationForm .button {
-  background-color: green;
+  background-color: cornflowerblue;
   border: none;
   border-radius: 4px;
   color: white;
-  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  height: 45px;
+  height: 25px;
 }
 
 .newConversationForm .form {
-  padding: 20px;
+  padding: 12px;
   border: black;
-  background-color: lightcoral;
+  background-color: white;
   border-radius: 2px;
-  //   padding: 5px 12px;
+  padding: 5px 12px;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   //   height: 45px;
 }

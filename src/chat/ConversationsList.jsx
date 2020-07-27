@@ -54,12 +54,9 @@ class ConversationsList extends React.Component {
         ) : null}
         <h2>Conversations / ROOMS</h2>
         <p>These are channels or rooms</p>
-        <p>A room will contain two users so they can chat</p>
-        <p>
-          This should be done internal, and created with a user is able to talk
-          to another user
-        </p>
-        <ul>{mapConversations(conversations, this.handleClick)}</ul>
+        <ul className="wish-bottom-container">
+          {mapConversations(conversations, this.handleClick)}
+        </ul>
         <NewConversationForm />
         {activeConversation ? (
           <MessagesArea
