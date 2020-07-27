@@ -1,6 +1,7 @@
 import React from "react";
 
 class EditWish extends React.Component {
+
   state = { title: "", description: "", user_id: "", loading: true, id: this.props.match.params.id, image:''};
   onInputChange = (event) => {
     const key = event.target.id;
@@ -45,15 +46,15 @@ class EditWish extends React.Component {
   };
 
   async componentDidMount() {
-    const { id } = this.state
-    const response = await fetch(`http://localhost:3000/wishes/${id}`,
-    {
+    const { id } = this.state;
+    const response = await fetch(`http://localhost:3000/wishes/${id}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`       
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
     const data = await response.json();
+
     // console.log(data.wishes[0])
     const { title, description, user_id } = data.wishes[0]
     this.setState({ title, user_id, description, loading: false });
@@ -97,13 +98,12 @@ class EditWish extends React.Component {
               id="image"
               onChange={this.onInputChange}
             />
-            <input className="wish-submit" type="submit" value="Submit" />
+            <input className="wish-submit" type="submit" data-testid="wish-submit" value="Submit" />
           </form>
         </div>
       )
     );
   }
 }
-
 
 export default EditWish;
