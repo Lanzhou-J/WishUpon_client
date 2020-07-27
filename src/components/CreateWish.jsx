@@ -1,7 +1,12 @@
 import React from "react";
 import "../stylesheets/CreateWish.scss";
+// import Select from "react-select";
+import CreatableSelect from 'react-select/creatable';
+// import { colourOptions } from "./data";
 
 class CreateWish extends React.Component {
+  // state = {selectedOption:null}
+
   onInputChange = (event) => {
     const key = event.target.id;
     if (event.target?.files) {
@@ -17,12 +22,6 @@ class CreateWish extends React.Component {
     // console.log(this.props);
     // console.log(this.body);
   };
-
-  // handleOptionChange = changeEvent => {
-  // this.setState({
-  //   selectedOption: changeEvent.target.value
-  // });
-  // };
 
   onFormSubmit = async (event) => {
     event.preventDefault();
@@ -42,6 +41,49 @@ class CreateWish extends React.Component {
     this.props.history.push("/dashboard");
   };
 
+  getKeywordsData = async () => {
+    const response = await fetch("http://localhost:3000/keywords/", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const data = await response.json();
+    this.setState({ keywordsdata: data });
+    console.log(this.state);
+  };
+
+  renderKeywords = () => {
+    if (this.state) {
+      let keywordsarr = [];
+      this.state.keywordsdata.keywords.forEach((keyword,index)=>{
+        keywordsarr.push({value: keyword, label: keyword.word, index:index})
+      })
+      console.log(keywordsarr)
+      return (
+        <div style={{ width: "250px" }}>
+          <CreatableSelect
+            id="keyword1"
+            // value={selectedOption}
+            menuPlacement="auto"
+            menuPosition="fixed"
+            // defaultValue={[colourOptions[2], colourOptions[3]]}
+            isMulti
+            name="colors"
+            options={keywordsarr}
+            // onChange={this.onInputChange}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
+        </div>
+      );
+    } else {
+      return <></>;
+    }
+  };
+
+  componentDidMount() {
+    this.getKeywordsData();
+  }
   render() {
     // console.log(this.state);
     // console.log(localStorage.getItem("token"));
@@ -69,67 +111,71 @@ class CreateWish extends React.Component {
             id="description"
             onChange={this.onInputChange}
           />
-          <label htmlFor="is_secret">Is this a secret wish?</label>
-          <div className="is_secret">
-            <label>
-              <input
-                type="radio"
-                name="is_secret"
-                id="is_secret"
-                value="true"
-                className="form-check-input"
-                onChange={this.onInputChange}
-              />
-              true
-            </label>
+          <div className="radiobutton-container">
+            <label htmlFor="is_secret">Is this a secret wish?</label>
+            <div className="is_secret">
+              <label>
+                <input
+                  type="radio"
+                  name="is_secret"
+                  id="is_secret"
+                  value="true"
+                  className="form-check-input"
+                  onChange={this.onInputChange}
+                />
+                true
+              </label>
+            </div>
+            <div className="is_secret">
+              <label>
+                <input
+                  type="radio"
+                  name="is_secret"
+                  id="is_secret"
+                  value="false"
+                  className="form-check-input"
+                  onChange={this.onInputChange}
+                />
+                false
+              </label>
+            </div>
           </div>
-          <div className="is_secret">
-            <label>
-              <input
-                type="radio"
-                name="is_secret"
-                id="is_secret"
-                value="false"
-                className="form-check-input"
-                onChange={this.onInputChange}
-              />
-              false
-            </label>
+          <div className="radiobutton-container">
+            <label htmlFor="is_anonymous">Is this an anonymous wish?</label>
+            <div className="is_anonymous">
+              <label>
+                <input
+                  type="radio"
+                  name="is_anonymous"
+                  id="is_anonymous"
+                  value="true"
+                  className="form-check-input"
+                  onChange={this.onInputChange}
+                />
+                true
+              </label>
+            </div>
+            <div className="is_anonymous">
+              <label>
+                <input
+                  type="radio"
+                  name="is_anonymous"
+                  id="is_anonymous"
+                  value="false"
+                  className="form-check-input"
+                  onChange={this.onInputChange}
+                />
+                false
+              </label>
+            </div>
           </div>
 
-          <label htmlFor="is_anonymous">Is this an anonymous wish?</label>
-          <div className="is_anonymous">
-            <label>
-              <input
-                type="radio"
-                name="is_anonymous"
-                id="is_anonymous"
-                value="true"
-                className="form-check-input"
-                onChange={this.onInputChange}
-              />
-              true
-            </label>
-          </div>
-          <div className="is_anonymous">
-            <label>
-              <input
-                type="radio"
-                name="is_anonymous"
-                id="is_anonymous"
-                value="false"
-                className="form-check-input"
-                onChange={this.onInputChange}
-              />
-              false
-            </label>
-          </div>
           <label htmlFor="keyword1">Keyword 1:</label>
           <input
             className="wish-input"
             type="text"
             name="keyword"
-            id="keyword"
+            id="keyword1"
             onChange={this.onInputChange}
           />
           <label htmlFor="keyword2">Keyword 2:</label>
@@ -137,7 +183,7 @@ class CreateWish extends React.Component {
             className="wish-input"
             type="text"
             name="keyword"
-            id="keyword"
+            id="keyword2"
             onChange={this.onInputChange}
           />
           <label htmlFor="keyword3">Keyword 3:</label>
@@ -145,9 +191,12 @@ class CreateWish extends React.Component {
             className="wish-input"
             type="text"
             name="keyword"
-            id="keyword"
+            id="keyword3"
             onChange={this.onInputChange}
           />
+          <h3>Select from existed keywords:</h3>
+
+          <div className="keywordsdata-container">{this.renderKeywords()}</div>
           <br />
           <label htmlFor="image">Image</label>
           <input
