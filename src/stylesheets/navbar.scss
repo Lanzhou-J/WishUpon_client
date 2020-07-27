@@ -1,8 +1,32 @@
+@media (min-width: 600px) {
+  nav {
+    padding: 20px;
+    height: 55px;
+    text-align: right;
+    display:flex;
+  }
+}
+
+@media(min-width: 360px){
+  nav {
+    height: 80px;
+    text-align: center;
+    // display:flex;
+    h1 {
+      font-size:1.1em;
+    }
+    .nav-links {
+      font-size: 0.9em;
+      justify-content: space-evenly;
+    }
+  }
+}
+
 nav {
-  padding: 20px;
-  height: 55px;
-  text-align: right;
-  display:flex;
+  // padding: 20px;
+  // height: 55px;
+  // text-align: right;
+  // display:flex;
   // border: 1px solid black;
 
   .nav-title-wrapper{

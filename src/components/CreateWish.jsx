@@ -33,7 +33,7 @@ class CreateWish extends React.Component {
       },
       body: data,
     });
-    this.props.history.push("/wishes");
+    this.props.history.push("/dashboard");
   };
 
   render() {
@@ -63,6 +63,46 @@ class CreateWish extends React.Component {
             id="description"
             onChange={this.onInputChange}
           />
+          <label htmlFor="is_secret">Is this a secret wish? (true/false)</label>
+          <input
+            className="wish-input"
+            type="text"
+            name="is_secret"
+            id="is_secret"
+            onChange={this.onInputChange}
+          />
+          <label htmlFor="is_anonymous">Is this an anonymous wish? (true/false)</label>
+          <input
+            className="wish-input"
+            type="text"
+            name="is_anonymous"
+            id="is_anonymous"
+            onChange={this.onInputChange}
+          />
+          <label htmlFor="keyword1">Keyword 1:</label>
+          <input
+            className="wish-input"
+            type="text"
+            name="keyword"
+            id="keyword"
+            onChange={this.onInputChange}
+          />
+          <label htmlFor="keyword2">Keyword 2:</label>
+          <input
+            className="wish-input"
+            type="text"
+            name="keyword"
+            id="keyword"
+            onChange={this.onInputChange}
+          />
+          <label htmlFor="keyword3">Keyword 3:</label>
+          <input
+            className="wish-input"
+            type="text"
+            name="keyword"
+            id="keyword"
+            onChange={this.onInputChange}
+          />
           <br />
           <label htmlFor="image">Image</label>
           <input
@@ -71,12 +111,7 @@ class CreateWish extends React.Component {
             id="image"
             onChange={this.onInputChange}
           />
-          <input
-            className="wish-submit"
-            type="submit"
-            data-testid="wish-submit"
-            value="Add Wish"
-          />
+          <input className="wish-submit" type="submit" value="Add Entry" />
         </form>
       </div>
     );
