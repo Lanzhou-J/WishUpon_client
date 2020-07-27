@@ -188,7 +188,7 @@ class CreateWish extends React.Component {
               </label>
             </div>
           </div>
-          <h3>Select from existed keywords:</h3>
+          <h3>Select from existed keywords or create new keywords:</h3>
 
           <div className="keywordsdata-container">{this.renderKeywords()}</div>
           <br />
