@@ -141,7 +141,7 @@ class EditWish extends React.Component {
     const { title, user_id, description, is_secret, is_anonymous, is_completed, loading } = this.state;
     return (
       !loading && (
-        <div className="container">
+        <div className="form-container-wish-edit">
           <form className="wish-form" onSubmit={this.onFormSubmit}>
             <h1>Edit a wish</h1>
             <label htmlFor="title">Title</label>

@@ -23,9 +23,10 @@
       }
     }
     .wish-image-container{
-      width:80%;
-      height:40vw;
+      width:70%;
+      height:30vw;
       // background-image: url(../assets/undraw_wishes_icyp.png);
+      // background-color: red;
       background-position: center;
       background-size: cover;
       overflow: hidden;
@@ -41,5 +42,8 @@
     // background-color: palegreen;
     width: 50%;
     padding: 15px;
+    background:linear-gradient( rgba(255,255,255,1) 22%, rgba(225,225,225,0.25) 90%), url("../assets/dreamcatcher.jpg");
+    background-position:center;
+    background-size:cover;
   }
 }
