@@ -24,7 +24,7 @@ class Wish extends React.Component {
     });
     const data = await response.json();
 
-    console.log(data.wishes[0])
+    // console.log(data.wishes[0])
     this.setState({ wishes: data.wishes[0], count: data.wishes[0].like});
   }
 
@@ -62,7 +62,7 @@ class Wish extends React.Component {
     this.setState({
       [event.target.id]: event.target.value,
     });
-    console.log(this.state);
+    // console.log(this.state);
     // console.log(this.props);
     // console.log(this.body);
   };
