@@ -15,7 +15,7 @@ class EditWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    // console.log(this.state)
+    console.log(this.state)
   };
 
   handleSelectChange = (keywords) => {
@@ -53,10 +53,13 @@ class EditWish extends React.Component {
     const datacopy = new FormData();
     for (let key in clone) {
       datacopy.append(`wish[${key}]`, clone[key]);
+    }
+    if(clone.keywords){
+      clone.keywords.forEach((word,index)=>{
+        datacopy.append(`wish[keyword${index+1}]`, word.label);
+      })
     }    
-    clone.keywords.forEach((word,index)=>{
-      datacopy.append(`wish[keyword${index+1}]`, word.label);
-    })
+
     await fetch(`http://localhost:3000/wishes/${id}`, {
       method: "PUT",
       headers: {
@@ -166,12 +169,12 @@ class EditWish extends React.Component {
               value={description}
             ></textarea>
             <div className="radiobutton-container">
-              <label htmlFor="is_secret">Is this a secret wish?</label>
+              <label htmlFor="is_secret">Is this a secret wish? ({is_secret.toString()})</label>
               <div className="is_secret">
                 <label>
                   <input
                     type="radio"
-                    checked={is_secret}
+                    // checked={is_secret}
                     name="is_secret"
                     id="is_secret"
                     value="true"
@@ -185,7 +188,7 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    checked={!is_secret}
+                    // checked={!is_secret}
                     name="is_secret"
                     id="is_secret"
                     value="false"
@@ -197,12 +200,12 @@ class EditWish extends React.Component {
               </div>
             </div>  
             <div className="radiobutton-container">
-              <label htmlFor="is_anonymous">Is this an anonymous wish?</label>
+              <label htmlFor="is_anonymous">Is this an anonymous wish? ({is_anonymous.toString()})</label>
               <div className="is_anonymous">
                 <label>
                   <input
                     type="radio"
-                    checked={is_anonymous}
+                    // checked={is_anonymous}
                     name="is_anonymous"
                     id="is_anonymous"
                     value="true"
@@ -216,7 +219,7 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    checked={!is_anonymous}
+                    // checked={!is_anonymous}
                     name="is_anonymous"
                     id="is_anonymous"
                     value="false"
