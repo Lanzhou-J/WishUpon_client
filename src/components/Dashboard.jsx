@@ -27,6 +27,18 @@ class Dashboard extends React.Component {
     // console.log(this.state);
   };
 
+  showSecret = (wish) => {
+    if(wish.is_secret){
+      return(
+        <p>Secret wish</p>
+      )
+    }else{
+      return(
+        <></>
+      )
+    }
+  }
+
   renderWishesCard = (wishes) => {
     if(wishes){
     return wishes.map((wish, index) => {
@@ -43,6 +55,7 @@ class Dashboard extends React.Component {
                 <div className="card-image">
                   <img id="card-pic" src={wish.image} alt=""/>
                 </div>
+                {this.showSecret(wish)}
               </div>  
 
                 <div className="card-face flip-card-back">
