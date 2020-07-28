@@ -45,7 +45,7 @@ class CreateWish extends React.Component {
     })
 
     console.log(data)
-    await fetch("http://localhost:3000/wishes", {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -56,7 +56,7 @@ class CreateWish extends React.Component {
   };
 
   getKeywordsData = async () => {
-    const response = await fetch("http://localhost:3000/keywords/", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/keywords/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

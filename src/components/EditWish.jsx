@@ -33,7 +33,7 @@ class EditWish extends React.Component {
     if(uploadedImage){
       const data = new FormData();
       data.append('wish[image]', uploadedImage)
-      const response = await fetch(`http://localhost:3000/wishes/image/${id}`,{
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/image/${id}`,{
         method: "PUT",
         body: data,
         headers: {
@@ -60,7 +60,7 @@ class EditWish extends React.Component {
       })
     }    
 
-    await fetch(`http://localhost:3000/wishes/${id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "PUT",
       headers: {
         // "Content-Type": "application/json",
@@ -72,7 +72,7 @@ class EditWish extends React.Component {
   };
 
   getKeywordsData = async () => {
-    const response = await fetch("http://localhost:3000/keywords/", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/keywords/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -117,7 +117,7 @@ class EditWish extends React.Component {
 
   async componentDidMount() {
     const { id } = this.state;
-    const response = await fetch(`http://localhost:3000/wishes/${id}`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,

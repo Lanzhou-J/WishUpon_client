@@ -6,7 +6,7 @@ class Dashboard extends React.Component {
   state = { wishes: [], user: null, completed_wishes: [], not_completed_wishes: [] };
 
   getUserWishes = async () => {
-    const response = await fetch("http://localhost:3000/wishes/current_user", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/current_user`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -17,7 +17,7 @@ class Dashboard extends React.Component {
   };
 
   getUserInfo = async () => {
-    const response = await fetch("http://localhost:3000/users/current_user", {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/current_user`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

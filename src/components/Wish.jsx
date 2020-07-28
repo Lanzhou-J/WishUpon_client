@@ -6,7 +6,7 @@ import "../stylesheets/Wish.scss";
 class Wish extends React.Component {
   state = { wishes: null, comments: null, count: 0};
   deleteWish = async (id) => {
-    await fetch(`http://localhost:3000/wishes/${id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -17,7 +17,7 @@ class Wish extends React.Component {
   };
 
   showWish = async (id) => {
-    const response = await fetch(`http://localhost:3000/wishes/${id}`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -30,7 +30,7 @@ class Wish extends React.Component {
 
   showComment = async (id) => {
     const response = await fetch(
-      `http://localhost:3000/wishes/${id}/comments`,
+      `${process.env.REACT_APP_BACKEND_URL}/wishes/${id}/comments`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -73,7 +73,7 @@ class Wish extends React.Component {
 
     const body = { content: this.state.content };
 
-    await fetch(`http://localhost:3000/wishes/${b}/comments`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${b}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -118,7 +118,7 @@ class Wish extends React.Component {
     })
 
     let like = this.state.count + 1;
-    await fetch(`http://localhost:3000/wishes/${id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
