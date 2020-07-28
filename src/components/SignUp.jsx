@@ -1,7 +1,8 @@
 import React from "react";
+import Select from "react-select";
 
 class SignUp extends React.Component {
-  state = { email: "", password: "", country_id: "" };
+  state = { email: "", password: "", country_id: "", countries: [], country:"" };
 
   onInputChange = (event) => {
     const key = event.target.id;
@@ -10,27 +11,85 @@ class SignUp extends React.Component {
     });
   };
 
+  handleSelectChange = (country) => {
+    this.setState({country})
+    console.log(`Option selected:`, country);
+    // selectedOption.forEach((option, index)=>{
+    //   this.setState({[index]: option.value.word})
+    // })
+  }
+
+  getCountry = async () => {
+    const response = await fetch(`https://restcountries.eu/rest/v2/all`);
+    const data = await response.json();
+    this.setState({ countries: data });
+    console.log(this.state);
+  };
+
+  renderCountries = () => {
+    if (this.state.countries) {
+      let countriesarr = [];
+      this.state.countries.forEach((country,index) => {
+        countriesarr.push({
+          value: country,
+          label: country.name,
+          index: index
+        });
+      });
+      console.log(countriesarr);
+
+      return (
+        <div style={{ width: "250px" }}>
+          <Select
+            value={this.state.country}
+            // value={selectedValue}
+            menuPlacement="auto"
+            menuPosition="fixed"
+            // defaultValue={[colourOptions[2], colourOptions[3]]}
+            name="colors"
+            options={countriesarr}
+            onChange={this.handleSelectChange}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
+          {/* <br />
+          <b>Selected Value:</b> */}
+        </div>
+      );
+    } else {
+      console.log("did not render countries")
+      return <></>;
+    }
+  };
+
   onFormSubmit = async (event) => {
     event.preventDefault();
-    const { email, password, country_id } = this.state;
+    let { email, password, country } = this.state;
+    country = country.value.name
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/sign-up`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user: { email, password, country_id } }),
-      });
-      if (response.status >= 400) {
-        throw new Error("incorrect credentials");
-      } else {
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/sign-up`,
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ auth: { email, password, country_id } }),
-        });
+          body: JSON.stringify({ user: { email, password, country} }),
+        }
+      );
+      if (response.status >= 400) {
+        throw new Error("incorrect credentials");
+      } else {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/login`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ auth: { email, password, country} }),
+          }
+        );
         const { jwt } = await response.json();
         localStorage.setItem("token", jwt);
         this.props.history.push("/dashboard");
@@ -40,9 +99,13 @@ class SignUp extends React.Component {
       console.log(err.message);
     }
   };
+  componentDidMount() {
+    this.getCountry();
+    // console.log(this.state)
+  }
 
   render() {
-    const { email, password, country_id } = this.state;
+    const { email, password} = this.state;
     return (
       <div className="Home-container">
         <div className="image-container">
@@ -77,15 +140,11 @@ class SignUp extends React.Component {
               value={password}
               onChange={this.onInputChange}
             />
-            <input
-              className="form-input"
-              type="country_id"
-              name="country_id"
-              id="country_id"
-              placeholder="Country"
-              value={country_id}
-              onChange={this.onInputChange}
-            />
+            <p>Country or region:</p>
+            <div className="keywordsdata-container">
+              {this.renderCountries()}
+            </div>
+            <br />
             <input id="login-button" type="submit" value="Create Account" />
           </form>
         </div>
