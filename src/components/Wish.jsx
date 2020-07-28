@@ -173,6 +173,16 @@ class Wish extends React.Component {
     )
   };
 
+  showCompleted=(wish)=>{
+    if(wish&&wish.is_completed){
+      return(
+        <p style={{color: "cornflowerblue", fontWeight:"bold"}}>This wish is completed!Yay!</p>
+      )
+    }else{
+      return(<></>)
+    }
+  }
+
   componentDidMount() {
     const b = this.props.match.params.id;
     // console.log(b)
@@ -213,9 +223,11 @@ class Wish extends React.Component {
             </div>
             <div className="wish-bottom-container">
               <div className="wish-wrapper">
+                {this.showCompleted(wish)}
                 <h1>{wish.title}</h1>
                 <p>Keywords: {`${keywords} `}</p>
                 <p>{wish.description}</p>
+
                 <button onClick={this.incrementMe}>
                   ❤ Likes: {this.state.count}
                 </button>

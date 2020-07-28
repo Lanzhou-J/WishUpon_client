@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
       },
       body: JSON.stringify({ is_completed }),
     });
-    // this.props.history.push("/wishes");
+    this.props.history.push(`/wishes/${id}`);
   };
 
   refreshPage = ()=>{
@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
             Delete
           </button>
         </span>
-        <button onClick={this.markAsComplete(wish.id), this.refreshPage}>
+        <button onClick={()=>this.markAsComplete(wish.id)}>
           Mark as completed
         </button>
       </div>

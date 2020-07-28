@@ -15,7 +15,7 @@ class EditWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    // console.log(this.state)
+    console.log(this.state)
   };
 
   handleSelectChange = (keywords) => {
@@ -125,7 +125,7 @@ class EditWish extends React.Component {
     });
     const data = await response.json();
 
-    // console.log(data.wishes[0])
+    console.log(data.wishes[0])
     const { title, description, user_id, is_secret, is_anonymous, is_completed, keywords } = data.wishes[0]
     // console.log(keywords)
     let newkeywords = []
