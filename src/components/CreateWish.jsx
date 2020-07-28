@@ -69,8 +69,8 @@ class CreateWish extends React.Component {
   renderKeywords = () => {
     if (this.state.keywordsdata) {
       let keywordsarr = [];
-      this.state.keywordsdata.keywords.forEach((keyword, index) => {
-        keywordsarr.push({ value: keyword, label: keyword.word, index: index });
+      this.state.keywordsdata.keywords.forEach((keyword) => {
+        keywordsarr.push({ value: keyword, label: keyword.word, index: keyword.id });
       });
       // console.log(keywordsarr);
 
