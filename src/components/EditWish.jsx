@@ -60,7 +60,7 @@ class EditWish extends React.Component {
     await fetch(`http://localhost:3000/wishes/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: datacopy,
