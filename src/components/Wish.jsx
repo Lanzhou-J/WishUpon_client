@@ -139,6 +139,9 @@ class Wish extends React.Component {
     // console.log(this.state)
     const wish = this.state.wishes;
     const comments = this.state.comments;
+    if(wish&&wish.is_anonymous){
+      wish.user = "Anonymous";
+    }
     // console.log(comments)
     if (wish && comments) {
       // console.log(comments.comments)
