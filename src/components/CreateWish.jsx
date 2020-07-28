@@ -199,7 +199,7 @@ class CreateWish extends React.Component {
             id="image"
             onChange={this.onInputChange}
           />
-          <input className="wish-submit" type="submit" value="Add Entry" />
+          <input className="wish-submit" type="submit" value="Add a wish" />
         </form>
       </div>
     );
