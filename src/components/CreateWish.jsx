@@ -18,14 +18,14 @@ class CreateWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    console.log(this.state);
+    // console.log(this.state);
     // console.log(this.props);
     // console.log(this.body);
   };
 
   handleSelectChange = (keywords) => {
     this.setState({keywords})
-    console.log(`Option selected:`, keywords);
+    // console.log(`Option selected:`, keywords);
     // selectedOption.forEach((option, index)=>{
     //   this.setState({[index]: option.value.word})
     // })
@@ -33,7 +33,7 @@ class CreateWish extends React.Component {
 
   onFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(this.state)
+    // console.log(this.state)
     const body = this.state;
     const data = new FormData();
     for (let key in body) {
@@ -44,7 +44,7 @@ class CreateWish extends React.Component {
       data.append(`wish[keyword${index+1}]`, word.label);
     })
 
-    console.log(data)
+    // console.log(data)
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes`, {
       method: "POST",
       headers: {
@@ -101,7 +101,7 @@ class CreateWish extends React.Component {
 
   componentDidMount() {
     this.getKeywordsData();
-    console.log(this.state)
+    // console.log(this.state)
   }
   render() {
     // console.log(this.state);

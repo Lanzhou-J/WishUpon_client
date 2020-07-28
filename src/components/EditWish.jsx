@@ -15,12 +15,12 @@ class EditWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    console.log(this.state)
+    // console.log(this.state)
   };
 
   handleSelectChange = (keywords) => {
     this.setState({keywords})
-    console.log(`Option selected:`, keywords);
+    // console.log(`Option selected:`, keywords);
     // selectedOption.forEach((option, index)=>{
     //   this.setState({[index]: option.value.word})
     // })
@@ -48,7 +48,7 @@ class EditWish extends React.Component {
     delete clone.uploadedImage
     delete clone.loading
     delete clone.keywordsdata
-    console.log(clone)
+    // console.log(clone)
 
     const datacopy = new FormData();
     for (let key in clone) {
@@ -88,7 +88,7 @@ class EditWish extends React.Component {
       this.state.keywordsdata.keywords.forEach((keyword) => {
         keywordsarr.push({ value: keyword, label: keyword.word, index: keyword.id });
       });
-      console.log(keywordsarr);
+      // console.log(keywordsarr);
 
       return (
         <div style={{ width: "250px" }}>
@@ -127,7 +127,7 @@ class EditWish extends React.Component {
 
     // console.log(data.wishes[0])
     const { title, description, user_id, is_secret, is_anonymous, keywords } = data.wishes[0]
-    console.log(keywords)
+    // console.log(keywords)
     let newkeywords = []
     keywords.forEach((word)=>{
       newkeywords.push({value:word, label:word.word, index:word.id})
