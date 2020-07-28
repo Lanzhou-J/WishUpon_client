@@ -3,7 +3,7 @@ import CreatableSelect from "react-select/creatable";
 
 class EditWish extends React.Component {
 
-  state = { title: "", description: "", user_id: "", loading: true, id: this.props.match.params.id, image:'', keywords: [], is_secret: null, is_anonymous: null};
+  state = { title: "", description: "", user_id: "", loading: true, id: this.props.match.params.id, image:'', keywords: [], is_secret: null, is_anonymous: null, is_completed: null};
   onInputChange = (event) => {
     const key = event.target.id;
     if (event.target?.files) {
@@ -68,7 +68,7 @@ class EditWish extends React.Component {
       },
       body: datacopy,
     });
-    this.props.history.push("/wishes");
+    this.props.history.push(`/wishes/${id}`);
   };
 
   getKeywordsData = async () => {
@@ -126,19 +126,19 @@ class EditWish extends React.Component {
     const data = await response.json();
 
     // console.log(data.wishes[0])
-    const { title, description, user_id, is_secret, is_anonymous, keywords } = data.wishes[0]
+    const { title, description, user_id, is_secret, is_anonymous, is_completed, keywords } = data.wishes[0]
     // console.log(keywords)
     let newkeywords = []
     keywords.forEach((word)=>{
       newkeywords.push({value:word, label:word.word, index:word.id})
     })
-    this.setState({ title, user_id, description, is_anonymous, is_secret, loading: false });
+    this.setState({ title, user_id, description, is_anonymous, is_secret, is_completed, loading: false });
     this.setState({keywords: newkeywords})
     this.getKeywordsData();
   }
 
   render() {
-    const { title, user_id, description, is_secret, is_anonymous, loading } = this.state;
+    const { title, user_id, description, is_secret, is_anonymous, is_completed, loading } = this.state;
     return (
       !loading && (
         <div className="container">
@@ -230,6 +230,37 @@ class EditWish extends React.Component {
                 </label>
               </div>
             </div>  
+            <div className="radiobutton-container">
+              <label htmlFor="is_completed">Is this wish completed? ({is_completed.toString()})</label>
+              <div className="is_completed">
+                <label>
+                  <input
+                    type="radio"
+                    // checked={is_completed}
+                    name="is_completed"
+                    id="is_completed"
+                    value="true"
+                    className="form-check-input"
+                    onChange={this.onInputChange}
+                  />
+                  true
+                </label>
+              </div>
+              <div className="is_completed">
+                <label>
+                  <input
+                    type="radio"
+                    // checked={!is_completed}
+                    name="is_completed"
+                    id="is_completed"
+                    value="false"
+                    className="form-check-input"
+                    onChange={this.onInputChange}
+                  />
+                  false
+                </label>
+              </div>
+            </div> 
             <h3>Select from existed keywords or create new keywords:</h3>
 
             <div className="keywordsdata-container">{this.renderKeywords()}</div>

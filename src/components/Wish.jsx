@@ -4,29 +4,32 @@ import "../stylesheets/Wish.scss";
 // import moment from 'moment';
 
 class Wish extends React.Component {
-  state = { wishes: null, comments: null, count: 0};
-  deleteWish = async (id) => {
-    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    window.alert("Are You Sure You Want To Delete This Wish?");
-    this.props.history.push("/wishes");
-  };
+  state = { wishes: null, comments: null, count: 0 };
+  // deleteWish = async (id) => {
+  //   await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //   });
+  //   window.alert("Are You Sure You Want To Delete This Wish?");
+  //   this.props.history.push("/wishes");
+  // };
 
   showWish = async (id) => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     const data = await response.json();
 
     // console.log(data.wishes[0])
-    this.setState({ wishes: data.wishes[0], count: data.wishes[0].like});
-  }
+    this.setState({ wishes: data.wishes[0], count: data.wishes[0].like });
+  };
 
   showComment = async (id) => {
     const response = await fetch(
@@ -110,25 +113,67 @@ class Wish extends React.Component {
     );
   };
 
-  incrementMe = async() => {
+  incrementMe = async () => {
     const id = this.props.match.params.id;
-    let newCount = this.state.count + 1
+    let newCount = this.state.count + 1;
     this.setState({
-      count: newCount
-    })
+      count: newCount,
+    });
 
     let like = this.state.count + 1;
+    console.log(like);
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({ like })
+      body: JSON.stringify({ like }),
     });
-  }
+  };
 
-  componentDidMount(){
+  // markAsComplete = async () => {
+  //   const id = this.props.match.params.id;
+  //   let is_completed = true;
+  //   await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //     body: JSON.stringify({ is_completed }),
+  //   });
+  //   this.props.history.push("/dashboard");
+  //   window.location.reload();
+  // };
+
+  protectedButtons = (wish) => {
+    return(
+      <div className="protectedButtons">
+        <Link to={`/wishes/${wish.id}/edit`}>
+          <button
+            className="edit-back-delete-button"
+            data-testid="editButton"
+          >
+            Edit
+          </button>
+        </Link>
+        <span onClick={() => this.deleteWish(wish.id)}>
+          <button
+            className="edit-back-delete-button"
+            data-testid="deleteButton"
+          >
+            Delete
+          </button>
+        </span>
+        <button onClick={this.markAsComplete}>
+          Mark as completed
+        </button>
+      </div>
+    )
+  };
+
+  componentDidMount() {
     const b = this.props.match.params.id;
     // console.log(b)
     this.showWish(b);
@@ -139,7 +184,7 @@ class Wish extends React.Component {
     // console.log(this.state)
     const wish = this.state.wishes;
     const comments = this.state.comments;
-    if(wish&&wish.is_anonymous){
+    if (wish && wish.is_anonymous) {
       wish.user = "Anonymous";
     }
     // console.log(comments)
@@ -171,23 +216,10 @@ class Wish extends React.Component {
                 <h1>{wish.title}</h1>
                 <p>Keywords: {`${keywords} `}</p>
                 <p>{wish.description}</p>
-                <button onClick={this.incrementMe}>❤ Likes: {this.state.count}</button>
-                <Link to={`/wishes/${wish.id}/edit`}>
-                  <button
-                    className="edit-back-delete-button"
-                    data-testid="editButton"
-                  >
-                    Edit
-                  </button>
-                </Link>
-                <span onClick={() => this.deleteWish(wish.id)}>
-                  <button
-                    className="edit-back-delete-button"
-                    data-testid="deleteButton"
-                  >
-                    Delete
-                  </button>
-                </span>
+                <button onClick={this.incrementMe}>
+                  ❤ Likes: {this.state.count}
+                </button>
+                {/* {this.protectedButtons(wish)} */}
               </div>
               <div className="like-comment-container">
                 {this.createComments()}

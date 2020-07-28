@@ -39,6 +39,61 @@ class Dashboard extends React.Component {
     }
   }
 
+  deleteWish = async (id) => {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    window.alert("Are You Sure You Want To Delete This Wish?");
+    this.props.history.push("/wishes");
+  };
+
+  markAsComplete = async (id) => {
+    // event.preventDefault();
+    let is_completed = true;
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ is_completed }),
+    });
+    // this.props.history.push("/wishes");
+  };
+
+  refreshPage = ()=>{
+   window.location.reload(); 
+  }
+
+  protectedButtons = (wish) => {
+    return(
+      <div className="protectedButtons">
+        <Link to={`/wishes/${wish.id}/edit`}>
+          <button
+            className="edit-back-delete-button"
+            data-testid="editButton"
+          >
+            Edit
+          </button>
+        </Link>
+        <span onClick={() => this.deleteWish(wish.id)}>
+          <button
+            className="edit-back-delete-button"
+            data-testid="deleteButton"
+          >
+            Delete
+          </button>
+        </span>
+        <button onClick={this.markAsComplete(wish.id), this.refreshPage}>
+          Mark as completed
+        </button>
+      </div>
+    )
+  };
+
   renderWishesCard = (wishes) => {
     if(wishes){
     return wishes.map((wish, index) => {
@@ -56,6 +111,7 @@ class Dashboard extends React.Component {
                   <img id="card-pic" src={wish.image} alt=""/>
                 </div>
                 {this.showSecret(wish)}
+
               </div>  
 
                 <div className="card-face flip-card-back">
@@ -70,6 +126,7 @@ class Dashboard extends React.Component {
                       <img src="heart.svg" alt="hearlogo" height="30" width="30"/>
                     </div>
                     <p>Like:{wish.like}</p>
+                    {this.protectedButtons(wish)}
                   </div> 
                 </div> 
             </div>
@@ -117,6 +174,7 @@ class Dashboard extends React.Component {
   }  
 
   render() {
+    
     // let newwishes = this.state.wishes
     // console.log(this.state)
     // console.log(newwishes)
