@@ -16,6 +16,14 @@ class Wishes extends React.Component {
     // console.log(this.state);
   };
 
+  showCompleted = (wish) => {
+    if(wish&&wish.is_completed){
+      return(<p>Completed</p>)
+    }else{
+      return(<></>)
+    }
+  }
+
   renderWishes = () => {
     let newwishes = this.state.wishes;
     // console.log(newwishes)
@@ -34,6 +42,7 @@ class Wishes extends React.Component {
                 <div className="card-image">
                     <img id="card-pic" src={wish.image} alt=""/>
                 </div>
+                {this.showCompleted(wish)}
               </div>  
 
                 <div className="card-face flip-card-back">
