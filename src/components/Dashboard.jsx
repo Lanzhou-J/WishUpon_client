@@ -46,7 +46,6 @@ class Dashboard extends React.Component {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    window.alert("Are You Sure You Want To Delete This Wish?");
     this.props.history.push("/wishes");
   };
 
@@ -68,6 +67,12 @@ class Dashboard extends React.Component {
    window.location.reload(); 
   }
 
+   confirmDelete = (id) => {
+    if (window.confirm("Are You Sure You Want To Delete This Wish?")) {
+      this.deleteWish(id);
+    }
+  }
+
   protectedButtons = (wish) => {
     return(
       <div className="protectedButtons">
@@ -79,7 +84,7 @@ class Dashboard extends React.Component {
             Edit
           </button>
         </Link>
-        <span onClick={() => this.deleteWish(wish.id)}>
+        <span onClick={() => this.confirmDelete(wish.id)}>
           <button
             className="edit-back-delete-button"
             data-testid="deleteButton"
