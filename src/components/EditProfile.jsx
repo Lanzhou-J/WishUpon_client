@@ -51,10 +51,14 @@ class EditProfile extends React.Component {
     let id = this.state.id;
     // let { first_name, last_name, age } = this.state;
     let clone = this.state
+    delete clone.countries
+    delete clone.hobbiesdata
+    clone.country = this.state.country.label
     const datacopy = new FormData();
     for (let key in clone) {
       datacopy.append(`user[${key}]`, clone[key]);
     }
+
     if(clone.hobbies){
       clone.hobbies.forEach((hobby,index)=>{
         datacopy.append(`user[hobby${index+1}]`, hobby.label);
