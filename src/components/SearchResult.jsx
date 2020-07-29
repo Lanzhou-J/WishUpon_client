@@ -61,7 +61,10 @@ class Searchresult extends React.Component {
     <div className="searchresult-container">
       {/* <h3>Searched results:</h3> */}
       <p>You are searching for: {this.props.searchkeyword}</p>
+      <div className="card-container">
       {this.searchwish(this.props.wishes, this.props.searchkeyword)}
+      </div>
+
     </div>)
     }
   }
