@@ -2,7 +2,7 @@ import React from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 // import { Link } from "react-router-dom";
-// import "../stylesheets/About.scss"
+import "../stylesheets/EditProfile.scss"
 
 class EditProfile extends React.Component {
   state = {
@@ -223,6 +223,7 @@ class EditProfile extends React.Component {
               id="first_name"
               onChange={this.onInputChange}
               value={first_name}
+              style={{width:"250px", height:"30px"}}
             />
             <label htmlFor="title">Lastname</label>
             <input
@@ -231,6 +232,7 @@ class EditProfile extends React.Component {
               id="last_name"
               onChange={this.onInputChange}
               value={last_name}
+              style={{width:"250px", height:"30px"}}
             />
             <label htmlFor="title">Age</label>
             <input
@@ -239,6 +241,7 @@ class EditProfile extends React.Component {
               id="age"
               onChange={this.onInputChange}
               value={age}
+              style={{width:"250px", height:"30px"}}
             />
             <h3>Select from existed hobbies or create new hobbies:</h3>
 
@@ -249,7 +252,7 @@ class EditProfile extends React.Component {
               {this.renderCountries()}
             </div>
             <br />
-            <input className="wish-submit" type="submit" data-testid="wish-submit" value="Submit" />
+            <input id="editsubmit" type="submit" data-testid="wish-submit" value="Edit Profile" />
           </form>
         </div>
         )
