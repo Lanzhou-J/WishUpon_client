@@ -1,12 +1,12 @@
 import React from "react";
 import "../stylesheets/CreateWish.scss";
-// import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-// import { colourOptions } from "./data";
 
 class CreateWish extends React.Component {
   state = {keywords: []}
 
+  // on input change create new key value pairs in state
+  // based on form input id and content
   onInputChange = (event) => {
     const key = event.target.id;
     if (event.target?.files) {
@@ -23,14 +23,15 @@ class CreateWish extends React.Component {
     // console.log(this.body);
   };
 
+  //handleSelectChange is used in order to get input values from CreatableSelect
   handleSelectChange = (keywords) => {
     this.setState({keywords})
     // console.log(`Option selected:`, keywords);
-    // selectedOption.forEach((option, index)=>{
-    //   this.setState({[index]: option.value.word})
-    // })
   }
 
+  // onFormSubmit is called when the create form is submitted
+  // A new FormData object is created, send to backend and parsed to send params
+  // since we have image file we can't send json file as content
   onFormSubmit = async (event) => {
     event.preventDefault();
     // console.log(this.state)
@@ -45,6 +46,7 @@ class CreateWish extends React.Component {
     })
 
     // console.log(data)
+    // Make a post request to create new wish
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes`, {
       method: "POST",
       headers: {
@@ -55,6 +57,7 @@ class CreateWish extends React.Component {
     this.props.history.push("/dashboard");
   };
 
+  // make a get request to get all keywords in the database for users to select from
   getKeywordsData = async () => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/keywords/`, {
       headers: {
@@ -66,6 +69,8 @@ class CreateWish extends React.Component {
     // console.log(this.state);
   };
 
+  // build a valid options array for CreatableSelect
+  // set "isMulti" in order to select multiple keywords
   renderKeywords = () => {
     if (this.state.keywordsdata) {
       let keywordsarr = [];
@@ -78,11 +83,8 @@ class CreateWish extends React.Component {
         <div style={{ width: "250px" }}>
           <CreatableSelect
             value = {this.state.keywords}
-            id="keyword1"
-            // value={selectedValue}
             menuPlacement="auto"
             menuPosition="fixed"
-            // defaultValue={[colourOptions[2], colourOptions[3]]}
             isMulti
             name="colors"
             options={keywordsarr}
@@ -99,6 +101,7 @@ class CreateWish extends React.Component {
     }
   };
 
+  // get keywords from the database after render runs first time 
   componentDidMount() {
     this.getKeywordsData();
     // console.log(this.state)

@@ -18,7 +18,8 @@ import EditProfile from "./EditProfile";
 
 
 class App extends React.Component {
-  
+  // only authenticated users are able to visit protectedroutes
+  // e.g. Dashboard/Wishes/EditProfile page etc.
   render() {
     return (
       <>
