@@ -163,7 +163,7 @@ class Dashboard extends React.Component {
           <p className="Username">{user.user.first_name}</p>
           <p className="userinfo-text">{user.country.name}</p>
           <p className="userinfo-text">Hobbies: {`${hobbies} `}</p>
-          <Link style={{marginLeft:'20px'}} to="/">Edit profile</Link>
+          <Link style={{marginLeft:'20px'}} to="/editprofile">Edit profile</Link>
         </div>
       )
     }

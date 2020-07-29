@@ -122,7 +122,7 @@ class Wish extends React.Component {
 
     let like = this.state.count + 1;
     console.log(like);
-    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/like/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
