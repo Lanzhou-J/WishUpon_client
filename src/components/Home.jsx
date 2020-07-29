@@ -19,7 +19,7 @@ class Home extends React.Component {
           <div className="button-container">
             <Link className="link-login" to="/login"><button className="button button-login">LOGIN</button></Link>
             <Link className="link-sign-up" to="/sign-up"><button className="button button-sign-up">SIGN UP</button></Link>
-            <a className="link-about" href="#">About</a>
+            <Link className="link-about" to="/about"><a className="link-about" href="#">About</a></Link>
           </div>
 
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 
 class SignUp extends React.Component {
-  state = { email: "", password: "", country_id: "", countries: [], country:"" };
+  state = { email: "", password: "", country_id: "", countries: [], country:"", first_name: "", last_name: "" };
 
   onInputChange = (event) => {
     const key = event.target.id;
@@ -64,7 +64,7 @@ class SignUp extends React.Component {
 
   onFormSubmit = async (event) => {
     event.preventDefault();
-    let { email, password, country } = this.state;
+    let { email, password, country, first_name, last_name } = this.state;
     country = country.value.name
     try {
       const response = await fetch(
@@ -74,7 +74,7 @@ class SignUp extends React.Component {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ user: { email, password, country} }),
+          body: JSON.stringify({ user: { email, password, first_name, last_name, country} }),
         }
       );
       if (response.status >= 400) {
@@ -87,7 +87,7 @@ class SignUp extends React.Component {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ auth: { email, password, country} }),
+            body: JSON.stringify({ auth: { email, password, first_name, last_name, country} }),
           }
         );
         const { jwt } = await response.json();
@@ -105,7 +105,7 @@ class SignUp extends React.Component {
   }
 
   render() {
-    const { email, password} = this.state;
+    const { email, password, first_name, last_name} = this.state;
     return (
       <div className="Home-container">
         <div className="image-container">
@@ -117,11 +117,11 @@ class SignUp extends React.Component {
             />
           </div>
         </div>
-        <div className="form-container">
+        <div className="signup-form-container">
           <h1 className="text-wrapper login-h1">
             Sign Up to <span>Wish Upon...</span>
           </h1>
-          <form className="loginform" onSubmit={this.onFormSubmit}>
+          <form className="signupform" onSubmit={this.onFormSubmit}>
             <input
               className="form-input"
               type="email"
@@ -138,6 +138,24 @@ class SignUp extends React.Component {
               id="password"
               placeholder="Password"
               value={password}
+              onChange={this.onInputChange}
+            />
+            <input
+              className="form-input"
+              type="first_name"
+              name="first_name"
+              id="first_name"
+              placeholder="Firstname"
+              value={first_name}
+              onChange={this.onInputChange}
+            />
+            <input
+              className="form-input"
+              type="last_name"
+              name="last_name"
+              id="last_name"
+              placeholder="Lastname"
+              value={last_name}
               onChange={this.onInputChange}
             />
             <p>Country or region:</p>

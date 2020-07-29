@@ -13,6 +13,7 @@ import Dashboard from "./Dashboard";
 import Navbar from "../shared/Navbar";
 import "../stylesheets/App.scss";
 import Room from "../shared/Room";
+import About from "./About";
 
 
 class App extends React.Component {
@@ -31,6 +32,7 @@ class App extends React.Component {
           <Route exact path="/sign-up" component={Signup} />
           <Route exact path="/" component={Home} />
           <Route exact path="/room" component={Room} />
+          <Route exact path="/about" component={About} />
           <Route component={NoMatch} />
         </Switch>
         {/* <Footer /> */}
