@@ -27,7 +27,7 @@ class EditProfile extends React.Component {
         [key]: event.target.value,
       });
     }
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   handleSelectChange = (hobbies) => {
@@ -39,7 +39,7 @@ class EditProfile extends React.Component {
   }
   handleCountryChange = (country) => {
     this.setState({country})
-    console.log(`Option selected:`, country);
+    // console.log(`Option selected:`, country);
     // console.log(`Option selected:`, keywords);
     // selectedOption.forEach((option, index)=>{
     //   this.setState({[index]: option.value.word})
@@ -83,7 +83,7 @@ class EditProfile extends React.Component {
     });
     const data = await response.json();
     this.setState({ hobbiesdata: data });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   renderHobbies = () => {
@@ -92,7 +92,7 @@ class EditProfile extends React.Component {
       this.state.hobbiesdata.hobbies.forEach((hobby) => {
         hobbiesarr.push({ value: hobby, label: hobby.name, index: hobby.id });
       });
-      console.log(hobbiesarr);
+      // console.log(hobbiesarr);
 
       return (
         <div style={{ width: "250px" }}>
@@ -123,7 +123,7 @@ class EditProfile extends React.Component {
     const response = await fetch(`https://restcountries.eu/rest/v2/all`);
     const data = await response.json();
     this.setState({ countries: data });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   renderCountries = () => {
@@ -136,7 +136,7 @@ class EditProfile extends React.Component {
           index: index
         });
       });
-      console.log(countriesarr);
+      // console.log(countriesarr);
 
     if(this.state.country){
 
@@ -161,7 +161,7 @@ class EditProfile extends React.Component {
         </div>
       );
     } else {
-      console.log("did not render countries")
+      // console.log("did not render countries")
       return <></>;
     }
   };
@@ -186,7 +186,7 @@ class EditProfile extends React.Component {
 
     this.setState({first_name: currentuser.first_name, last_name: currentuser.last_name, age: currentuser.age, id: currentuser.id, country: countryvalue, loading: false})
     this.setState({hobbies: newhobbies})
-    console.log(this.state)
+    // console.log(this.state)
     this.getHobbiesData();
     this.getCountry();
     // const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {

@@ -15,7 +15,7 @@ class EditWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    console.log(this.state)
+    // console.log(this.state)
   };
 
   handleSelectChange = (keywords) => {

@@ -14,7 +14,7 @@ class Searchresult extends React.Component {
         searchwishes.push(wish)
       }
     })
-    console.log(searchwishes);
+    // console.log(searchwishes);
     return searchwishes.map((wish, index) => {
       let keywords = []
       wish.keywords.forEach((word)=>{
@@ -55,8 +55,8 @@ class Searchresult extends React.Component {
 
 
   render() {
-    console.log(this.props.wishes)
-    console.log(this.props.searchkeyword)
+    // console.log(this.props.wishes)
+    // console.log(this.props.searchkeyword)
     return(
     <div className="searchresult-container">
       {/* <h3>Searched results:</h3> */}

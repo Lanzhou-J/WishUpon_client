@@ -21,7 +21,7 @@ class Searchbar extends React.Component {
   //handleSelectChange is used in order to get input values from CreatableSelect
   handleSelectChange = (keyword) => {
     this.setState({keyword})
-    console.log(`Option selected:`, keyword);
+    // console.log(`Option selected:`, keyword);
     this.props.getSearchKeyword(keyword.label)
   }
 
