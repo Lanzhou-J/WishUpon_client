@@ -28,6 +28,13 @@
   align-items: center;
   margin-right: 30px;
   margin-top: 80px;
+  button:hover {
+    background-color: rgb(200,200,200);
+  }
+  button:active{
+    background-color: white;
+  }
+  // background-color: orange;
 }
 
 .link-login,.link-sign-up {

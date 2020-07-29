@@ -80,3 +80,20 @@
     margin: 0 10px 0 5px;
   }
 }
+
+.protectedButtons {
+  button {
+    height: 32px;
+    padding: 8px;
+    margin: 5px;
+    background-color: white;
+    border: 0.5px solid black;
+    border-radius: 5px;
+  }
+  button:hover {
+    background-color: rgb(200,200,200);
+  }
+  button:active{
+    background-color: white;
+  }
+}

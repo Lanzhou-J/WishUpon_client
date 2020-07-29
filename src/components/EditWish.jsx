@@ -151,6 +151,7 @@ class EditWish extends React.Component {
               id="title"
               onChange={this.onInputChange}
               value={title}
+              style={{width:"400px", height:"30px"}}
             />
             {/* <label htmlFor="user_id">User ID</label>
             <input
@@ -272,7 +273,12 @@ class EditWish extends React.Component {
               id="image"
               onChange={this.onInputChange}
             />
-            <input className="wish-submit" type="submit" data-testid="wish-submit" value="Submit" />
+            <input 
+              className="wish-submit" 
+              type="submit" 
+              data-testid="wish-submit" 
+              value="Submit" 
+              style={{backgroundColor:"white", border:"0.5px solid black", width:"200px", height: "30px"}}/>
           </form>
         </div>
       )

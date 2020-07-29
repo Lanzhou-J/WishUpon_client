@@ -33,6 +33,13 @@
       background-color: white;
       font-size: 1.1em;
     }
+    #login-button:hover {
+      cursor: pointer;
+      background-color: rgb(200,200,200);
+    }
+    #login-button:active {
+      background-color: white;
+    }
   }
 }
 
@@ -55,5 +62,19 @@
       height: 30px;
       font-size: 1.2em;
       }
+    }
+    #submit-button {
+      // width: 60px;
+      height: 30px;
+      font-size:1.1em;
+      background-color: white;
+      font-size: 1.1em;
+    }
+    #submit-button:hover {
+      cursor: pointer;
+      background-color: rgb(200,200,200);
+    }
+    #submit-button:active {
+      background-color: white;
     }
 }

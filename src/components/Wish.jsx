@@ -102,11 +102,15 @@ class Wish extends React.Component {
             name="content"
             id="content"
             onChange={this.onInputChange}
+            style={{height:"25px", width:"400px"}}
           />
           <input
+            id="addcomment"
             type="submit"
             data-testid="comments-button"
             value="Add A Comment"
+
+            style={{backgroundColor:"white", border:"0.5px solid black", marginLeft:"8px", height: "25px"}}
           />
         </form>
       </div>

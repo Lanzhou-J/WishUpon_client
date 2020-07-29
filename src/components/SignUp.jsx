@@ -65,7 +65,9 @@ class SignUp extends React.Component {
   onFormSubmit = async (event) => {
     event.preventDefault();
     let { email, password, country, first_name, last_name } = this.state;
-    country = country.value.name
+    if(country.value){
+      country = country.value.name
+    }
     try {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/sign-up`,
@@ -163,7 +165,7 @@ class SignUp extends React.Component {
               {this.renderCountries()}
             </div>
             <br />
-            <input id="login-button" type="submit" value="Create Account" />
+            <input id="submit-button" type="submit" value="Create Account" />
           </form>
         </div>
       </div>
