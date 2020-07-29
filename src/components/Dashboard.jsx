@@ -139,7 +139,7 @@ class Dashboard extends React.Component {
        );
     });
     }else{
-      console.log("nothing")
+      // console.log("nothing")
       return(<></>)
     }
   }
@@ -159,14 +159,15 @@ class Dashboard extends React.Component {
       user.hobbies.forEach((hobby)=>{
         hobbies.push(hobby.name)
       })
-      // console.log(hobbies)
+      // console.log(user)
       return(
         <div className="userinfo">
           <div className="profilepic">
             <img src="picture.svg" alt=""/>
           </div>
-          <p className="Username">{user.user.first_name}</p>
+          <p className="Username">{user.user.first_name} {user.user.last_name}</p>
           <p className="userinfo-text">{user.country.name}</p>
+          <p className="userinfo-text">Age:{user.user.age}</p>
           <p className="userinfo-text">Hobbies: {`${hobbies} `}</p>
           <Link style={{marginLeft:'20px'}} to="/editprofile">Edit profile</Link>
         </div>

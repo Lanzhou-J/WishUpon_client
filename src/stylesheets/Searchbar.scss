@@ -1,0 +1,11 @@
+.searchbar-container {
+  display:flex;
+  justify-content: center;
+  .searchbar-wrapper {
+    display:flex;
+    align-items: center;
+    h3 {
+      margin: 0 10px 0 10px;
+    }
+  }
+}

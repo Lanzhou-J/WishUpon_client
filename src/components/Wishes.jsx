@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../stylesheets/Wishes.scss"
+import Searchbar from "./Searchbar"
+import SearchResult from "./SearchResult"
 
 class Wishes extends React.Component {
   state = { wishes: [] };
@@ -22,6 +24,12 @@ class Wishes extends React.Component {
     }else{
       return(<></>)
     }
+  }
+
+  getSearchKeyword = (input) => {
+    this.setState(state=>{
+      return {searchkeyword: input}
+    })
   }
 
   renderWishes = () => {
@@ -72,6 +80,8 @@ class Wishes extends React.Component {
           <div className="card-container">
               {this.renderWishes()}
           </div>
+          <Searchbar getSearchKeyword={this.getSearchKeyword}/>
+          <SearchResult wishes={this.state.wishes} searchkeyword={this.state.searchkeyword}/>
       </div>
     );
   }
