@@ -278,7 +278,7 @@ class EditWish extends React.Component {
               type="submit" 
               data-testid="wish-submit" 
               value="Submit" 
-              style={{backgroundColor:"white", border:"0.5px solid black", width:"200px", height: "30px"}}/>
+              />
           </form>
         </div>
       )

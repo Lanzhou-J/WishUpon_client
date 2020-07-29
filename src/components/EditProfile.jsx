@@ -252,7 +252,7 @@ class EditProfile extends React.Component {
               {this.renderCountries()}
             </div>
             <br />
-            <input id="editsubmit" type="submit" data-testid="wish-submit" value="Edit Profile" />
+            <input className="wish-submit" type="submit" data-testid="wish-submit" value="Edit Profile" />
           </form>
         </div>
         )
