@@ -1,5 +1,6 @@
 import React from "react";
 import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 // import { Link } from "react-router-dom";
 // import "../stylesheets/About.scss"
 
@@ -7,7 +8,7 @@ class EditProfile extends React.Component {
   state = {
     first_name: "",
     last_name: "",
-    country_id: "",
+    country: "",
     loading: true,
     image: "",
     age: 0,
@@ -31,6 +32,14 @@ class EditProfile extends React.Component {
 
   handleSelectChange = (hobbies) => {
     this.setState({hobbies})
+    // console.log(`Option selected:`, keywords);
+    // selectedOption.forEach((option, index)=>{
+    //   this.setState({[index]: option.value.word})
+    // })
+  }
+  handleCountryChange = (country) => {
+    this.setState({country})
+    console.log(`Option selected:`, country);
     // console.log(`Option selected:`, keywords);
     // selectedOption.forEach((option, index)=>{
     //   this.setState({[index]: option.value.word})
@@ -106,6 +115,53 @@ class EditProfile extends React.Component {
     }
   };
 
+  getCountry = async () => {
+    const response = await fetch(`https://restcountries.eu/rest/v2/all`);
+    const data = await response.json();
+    this.setState({ countries: data });
+    console.log(this.state);
+  };
+
+  renderCountries = () => {
+    if (this.state.countries) {
+      let countriesarr = [];
+      this.state.countries.forEach((country,index) => {
+        countriesarr.push({
+          value: country,
+          label: country.name,
+          index: index
+        });
+      });
+      console.log(countriesarr);
+
+    if(this.state.country){
+
+    }
+
+      return (
+        <div style={{ width: "250px" }}>
+          <Select
+            value={this.state.country}
+            // value={selectedValue}
+            menuPlacement="auto"
+            menuPosition="fixed"
+            // defaultValue={[colourOptions[2], colourOptions[3]]}
+            name="colors"
+            options={countriesarr}
+            onChange={this.handleCountryChange}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
+          {/* <br />
+          <b>Selected Value:</b> */}
+        </div>
+      );
+    } else {
+      console.log("did not render countries")
+      return <></>;
+    }
+  };
+
   async componentDidMount() {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/current_user`, {
       headers: {
@@ -119,12 +175,16 @@ class EditProfile extends React.Component {
     data.hobbies.forEach((hobby)=>{
       newhobbies.push({value:hobby, label:hobby.name, index:hobby.id})
     })
-    console.log(newhobbies)
 
-    this.setState({first_name: currentuser.first_name, last_name: currentuser.last_name, age: currentuser.age, id: currentuser.id, loading: false})
+    const countryvalue = {value:data.country, label: data.country.name, index: data.country.id}
+    // console.log(newhobbies)
+    // console.log(data.country.name)
+
+    this.setState({first_name: currentuser.first_name, last_name: currentuser.last_name, age: currentuser.age, id: currentuser.id, country: countryvalue, loading: false})
     this.setState({hobbies: newhobbies})
-    console.log(data)
+    console.log(this.state)
     this.getHobbiesData();
+    this.getCountry();
     // const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
     //   headers: {
     //     "Content-Type": "application/json",
@@ -180,7 +240,11 @@ class EditProfile extends React.Component {
 
             <div className="keywordsdata-container">{this.renderHobbies()}</div>
             <br />        
-            
+            <p>Country or region:</p>
+            <div className="keywordsdata-container">
+              {this.renderCountries()}
+            </div>
+            <br />
             <input className="wish-submit" type="submit" data-testid="wish-submit" value="Submit" />
           </form>
         </div>
