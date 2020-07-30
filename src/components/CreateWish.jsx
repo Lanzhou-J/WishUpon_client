@@ -18,15 +18,11 @@ class CreateWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    // console.log(this.state);
-    // console.log(this.props);
-    // console.log(this.body);
   };
 
   //handleSelectChange is used in order to get input values from CreatableSelect
   handleSelectChange = (keywords) => {
     this.setState({keywords})
-    // console.log(`Option selected:`, keywords);
   }
 
   // onFormSubmit is called when the create form is submitted
@@ -45,7 +41,6 @@ class CreateWish extends React.Component {
       data.append(`wish[keyword${index+1}]`, word.label);
     })
 
-    // console.log(data)
     // Make a post request to create new wish
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes`, {
       method: "POST",
@@ -66,7 +61,6 @@ class CreateWish extends React.Component {
     });
     const data = await response.json();
     this.setState({ keywordsdata: data });
-    // console.log(this.state);
   };
 
   // build a valid options array for CreatableSelect
@@ -77,7 +71,6 @@ class CreateWish extends React.Component {
       this.state.keywordsdata.keywords.forEach((keyword) => {
         keywordsarr.push({ value: keyword, label: keyword.word, index: keyword.id });
       });
-      // console.log(keywordsarr);
 
       return (
         <div style={{ width: "250px" }}>
@@ -92,8 +85,6 @@ class CreateWish extends React.Component {
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          {/* <br />
-          <b>Selected Value:</b> */}
         </div>
       );
     } else {
@@ -104,11 +95,8 @@ class CreateWish extends React.Component {
   // get keywords from the database after render runs first time 
   componentDidMount() {
     this.getKeywordsData();
-    // console.log(this.state)
   }
   render() {
-    // console.log(this.state);
-    // console.log(localStorage.getItem("token"));
     return (
       <div className="form-container-wish" style={{ margin: "0 0 35px 0" }}>
         <form

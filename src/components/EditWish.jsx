@@ -2,14 +2,24 @@ import React from "react";
 import CreatableSelect from "react-select/creatable";
 
 class EditWish extends React.Component {
-
-  state = { title: "", description: "", user_id: "", loading: true, id: this.props.match.params.id, image:'', keywords: [], is_secret: null, is_anonymous: null, is_completed: null};
+  state = {
+    title: "",
+    description: "",
+    user_id: "",
+    loading: true,
+    id: this.props.match.params.id,
+    image: "",
+    keywords: [],
+    is_secret: null,
+    is_anonymous: null,
+    is_completed: null,
+  };
   onInputChange = (event) => {
     const key = event.target.id;
     if (event.target?.files) {
       this.setState({
-        uploadedImage: event.target.files[0]
-      })
+        uploadedImage: event.target.files[0],
+      });
     } else {
       this.setState({
         [key]: event.target.value,
@@ -19,46 +29,59 @@ class EditWish extends React.Component {
   };
 
   handleSelectChange = (keywords) => {
-    this.setState({keywords})
+    this.setState({ keywords });
     // console.log(`Option selected:`, keywords);
     // selectedOption.forEach((option, index)=>{
     //   this.setState({[index]: option.value.word})
     // })
-  }
+  };
 
   onFormSubmit = async (event) => {
     event.preventDefault();
-    let { id, title, description, user_id, is_secret, is_anonymous, keywords, image, uploadedImage } = this.state;
+    let {
+      id,
+      title,
+      description,
+      user_id,
+      is_secret,
+      is_anonymous,
+      keywords,
+      image,
+      uploadedImage,
+    } = this.state;
 
-    if(uploadedImage){
+    if (uploadedImage) {
       const data = new FormData();
-      data.append('wish[image]', uploadedImage)
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/image/${id}`,{
-        method: "PUT",
-        body: data,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+      data.append("wish[image]", uploadedImage);
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/wishes/image/${id}`,
+        {
+          method: "PUT",
+          body: data,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-      })
-      image = await response.text()
+      );
+      image = await response.text();
     }
 
-    let clone = this.state
-    delete clone.image
-    delete clone.uploadedImage
-    delete clone.loading
-    delete clone.keywordsdata
+    let clone = this.state;
+    delete clone.image;
+    delete clone.uploadedImage;
+    delete clone.loading;
+    delete clone.keywordsdata;
     // console.log(clone)
 
     const datacopy = new FormData();
     for (let key in clone) {
       datacopy.append(`wish[${key}]`, clone[key]);
     }
-    if(clone.keywords){
-      clone.keywords.forEach((word,index)=>{
-        datacopy.append(`wish[keyword${index+1}]`, word.label);
-      })
-    }    
+    if (clone.keywords) {
+      clone.keywords.forEach((word, index) => {
+        datacopy.append(`wish[keyword${index + 1}]`, word.label);
+      });
+    }
 
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "PUT",
@@ -72,11 +95,14 @@ class EditWish extends React.Component {
   };
 
   getKeywordsData = async () => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/keywords/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/keywords/`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     const data = await response.json();
     this.setState({ keywordsdata: data });
     // console.log(this.state);
@@ -86,14 +112,18 @@ class EditWish extends React.Component {
     if (this.state.keywordsdata) {
       let keywordsarr = [];
       this.state.keywordsdata.keywords.forEach((keyword) => {
-        keywordsarr.push({ value: keyword, label: keyword.word, index: keyword.id });
+        keywordsarr.push({
+          value: keyword,
+          label: keyword.word,
+          index: keyword.id,
+        });
       });
       // console.log(keywordsarr);
 
       return (
         <div style={{ width: "250px" }}>
           <CreatableSelect
-            value = {this.state.keywords}
+            value={this.state.keywords}
             id="keyword1"
             // value={selectedValue}
             menuPlacement="auto"
@@ -117,28 +147,58 @@ class EditWish extends React.Component {
 
   async componentDidMount() {
     const { id } = this.state;
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     const data = await response.json();
 
-    console.log(data.wishes[0])
-    const { title, description, user_id, is_secret, is_anonymous, is_completed, keywords } = data.wishes[0]
+    // console.log(data.wishes[0])
+    if (data.wishes) {
+      const {
+        title,
+        description,
+        user_id,
+        is_secret,
+        is_anonymous,
+        is_completed,
+        keywords,
+      } = data.wishes[0];
+      let newkeywords = [];
+      keywords.forEach((word) => {
+        newkeywords.push({ value: word, label: word.word, index: word.id });
+      });
+      this.setState({
+        title,
+        user_id,
+        description,
+        is_anonymous,
+        is_secret,
+        is_completed,
+        loading: false,
+      });
+      this.setState({ keywords: newkeywords });
+      this.getKeywordsData();
+    }
+
     // console.log(keywords)
-    let newkeywords = []
-    keywords.forEach((word)=>{
-      newkeywords.push({value:word, label:word.word, index:word.id})
-    })
-    this.setState({ title, user_id, description, is_anonymous, is_secret, is_completed, loading: false });
-    this.setState({keywords: newkeywords})
-    this.getKeywordsData();
   }
 
   render() {
-    const { title, user_id, description, is_secret, is_anonymous, is_completed, loading } = this.state;
+    const {
+      title,
+      user_id,
+      description,
+      is_secret,
+      is_anonymous,
+      is_completed,
+      loading,
+    } = this.state;
     return (
       !loading && (
         <div className="form-container-wish-edit">
@@ -151,7 +211,7 @@ class EditWish extends React.Component {
               id="title"
               onChange={this.onInputChange}
               value={title}
-              style={{width:"400px", height:"30px"}}
+              style={{ width: "400px", height: "30px" }}
             />
             {/* <label htmlFor="user_id">User ID</label>
             <input
@@ -170,7 +230,9 @@ class EditWish extends React.Component {
               value={description}
             ></textarea>
             <div className="radiobutton-container">
-              <label htmlFor="is_secret">Is this a secret wish? ({is_secret.toString()})</label>
+              <label htmlFor="is_secret">
+                Is this a secret wish? ({is_secret.toString()})
+              </label>
               <div className="is_secret">
                 <label>
                   <input
@@ -199,9 +261,11 @@ class EditWish extends React.Component {
                   false
                 </label>
               </div>
-            </div>  
+            </div>
             <div className="radiobutton-container">
-              <label htmlFor="is_anonymous">Is this an anonymous wish? ({is_anonymous.toString()})</label>
+              <label htmlFor="is_anonymous">
+                Is this an anonymous wish? ({is_anonymous.toString()})
+              </label>
               <div className="is_anonymous">
                 <label>
                   <input
@@ -230,9 +294,11 @@ class EditWish extends React.Component {
                   false
                 </label>
               </div>
-            </div>  
+            </div>
             <div className="radiobutton-container">
-              <label htmlFor="is_completed">Is this wish completed? ({is_completed.toString()})</label>
+              <label htmlFor="is_completed">
+                Is this wish completed? ({is_completed.toString()})
+              </label>
               <div className="is_completed">
                 <label>
                   <input
@@ -261,11 +327,13 @@ class EditWish extends React.Component {
                   false
                 </label>
               </div>
-            </div> 
+            </div>
             <h3>Select from existed keywords or create new keywords:</h3>
 
-            <div className="keywordsdata-container">{this.renderKeywords()}</div>
-            <br />        
+            <div className="keywordsdata-container">
+              {this.renderKeywords()}
+            </div>
+            <br />
             <label htmlFor="image">Image</label>
             <input
               type="file"
@@ -273,12 +341,12 @@ class EditWish extends React.Component {
               id="image"
               onChange={this.onInputChange}
             />
-            <input 
-              className="wish-submit" 
-              type="submit" 
-              data-testid="wish-submit" 
-              value="Submit" 
-              />
+            <input
+              className="wish-submit"
+              type="submit"
+              data-testid="wish-submit"
+              value="Submit"
+            />
           </form>
         </div>
       )

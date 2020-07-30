@@ -2,10 +2,12 @@ import React from "react";
 import "../stylesheets/Searchresult.scss"
 import { Link } from "react-router-dom";
 
-// Introduction of the website including purpose and core features
+// This part is for showing the searched result on wishes page
 class Searchresult extends React.Component {
   state={wishes:[]}
 
+  // searchwish function maps through wishes and find all the wishes that contain the keyword.
+  // acceppts 2 parameter: wishes and keyword, both are included in this.props
   searchwish = (wishes, keyword) => {
     let searchwishes = [];
     wishes.forEach((wish, index)=>{
@@ -14,13 +16,13 @@ class Searchresult extends React.Component {
         searchwishes.push(wish)
       }
     })
-    // console.log(searchwishes);
+    // the searchwishes array contain all the wishes that have the same keyword 
+    // that user input in the search bar.
     return searchwishes.map((wish, index) => {
       let keywords = []
       wish.keywords.forEach((word)=>{
         keywords.push(word.word)
       })
-      // console.log(keywords)
       return (
           <div className="card-wrapper flip-card" key={index}>
             <div className="wish-index card flip-card-inner" >
@@ -29,7 +31,6 @@ class Searchresult extends React.Component {
                 <div className="card-image">
                     <img id="card-pic" src={wish.image} alt=""/>
                 </div>
-                {/* {this.showCompleted(wish)} */}
               </div>  
 
                 <div className="card-face flip-card-back">
@@ -52,19 +53,15 @@ class Searchresult extends React.Component {
     });
   }
 
-
-
+  // show users what keywords they are lookng for
+  // show users the search results in wishes cards format
   render() {
-    // console.log(this.props.wishes)
-    // console.log(this.props.searchkeyword)
     return(
     <div className="searchresult-container">
-      {/* <h3>Searched results:</h3> */}
       <p>You are searching for: {this.props.searchkeyword}</p>
       <div className="card-container">
       {this.searchwish(this.props.wishes, this.props.searchkeyword)}
       </div>
-
     </div>)
     }
   }

@@ -5,6 +5,7 @@ import "../stylesheets/Dashboard.scss"
 class Dashboard extends React.Component {
   state = { wishes: [], user: null, completed_wishes: [], not_completed_wishes: [] };
 
+  // make an http GET request to get wishes that belongs to current user
   getUserWishes = async () => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/current_user`, {
       headers: {
@@ -12,10 +13,11 @@ class Dashboard extends React.Component {
       },
     });
     const data = await response.json();
+    // the reverse() method makes sure that latest wishes are always on the top of the dashboard page
     this.setState({ wishes: data, completed_wishes: data.completed_wishes.reverse(), not_completed_wishes: data.not_completed_wishes.reverse()});
-    // console.log(this.state);
   };
 
+  // make an http GET request to get current user information e.g. name, age etc. 
   getUserInfo = async () => {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/current_user`, {
       headers: {
@@ -24,9 +26,9 @@ class Dashboard extends React.Component {
     });
     const data = await response.json();
     this.setState({ user: data});
-    // console.log(this.state);
   };
 
+  // conditinal rendering: if wish is secret, show Secret wish tag
   showSecret = (wish) => {
     if(wish.is_secret){
       return(
@@ -39,6 +41,7 @@ class Dashboard extends React.Component {
     }
   }
 
+  // Send a DELETE http request to the backend to delete a wish
   deleteWish = async (id) => {
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "DELETE",
@@ -49,8 +52,8 @@ class Dashboard extends React.Component {
     this.props.history.push("/wishes");
   };
 
+  // send a put request to backend to edit the is_completed attribute of a wish
   markAsComplete = async (id) => {
-    // event.preventDefault();
     let is_completed = true;
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "PUT",
@@ -67,7 +70,8 @@ class Dashboard extends React.Component {
    window.location.reload(); 
   }
 
-   confirmDelete = (id) => {
+  // the delete request will only be sent if users confirmed.(click "OK")
+  confirmDelete = (id) => {
     if (window.confirm("Are You Sure You Want To Delete This Wish?")) {
       this.deleteWish(id);
     }
@@ -106,7 +110,6 @@ class Dashboard extends React.Component {
       wish.keywords.forEach((word)=>{
         keywords.push(word.word)
       })
-      // console.log(keywords)
       return (
           <div className="card-wrapper flip-card" key={index}>
             <div className="wish-index card flip-card-inner" >
@@ -139,18 +142,9 @@ class Dashboard extends React.Component {
        );
     });
     }else{
-      // console.log("nothing")
       return(<></>)
     }
   }
-
-  // renderUserWishes = () => {
-  //   let newwishes = this.state.wishes
-  //   // console.log(this.state)
-  //   console.log(newwishes)
-  //   console.log(newwishes.not_completed_wishes)
-  //   console.log(newwishes.completed_wishes)
-  // };
 
   renderUserInfo = () => {
     const user = this.state.user
@@ -159,7 +153,6 @@ class Dashboard extends React.Component {
       user.hobbies.forEach((hobby)=>{
         hobbies.push(hobby.name)
       })
-      // console.log(user)
       return(
         <div className="userinfo">
           <div className="profilepic">
@@ -181,19 +174,11 @@ class Dashboard extends React.Component {
   }  
 
   render() {
-    
-    // let newwishes = this.state.wishes
-    // console.log(this.state)
-    // console.log(newwishes)
     const not_completed_wishes = this.state.not_completed_wishes;
     const completed_wishes = this.state.completed_wishes;
 
-    // if(newwishes.length!==0){
-    //   const completed_wishes = newwishes.completed_wishes.reverse();
-    //   const not_completed_wishes = newwishes.not_completed_wishes.reverse();
       return (
         <div className="wish-index-container">
-          {/* <h1 className="title">User Dashboard: my wishes</h1> */}
           <div className="userinfo-container">
             {this.renderUserInfo()}
           </div>
@@ -215,9 +200,6 @@ class Dashboard extends React.Component {
           </div>
         </div>
       )
-    // }else{
-    //   return(<></>)
-    // }
   }
 }
 

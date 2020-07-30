@@ -2,7 +2,8 @@ import React from "react";
 import Select from "react-select";
 import "../stylesheets/Searchbar.scss"
 
-// Introduction of the website including purpose and core features
+// The Searchbar will pass the search keyword value to Wishes.jsx and set Wishes state
+// (state lifting)
 class Searchbar extends React.Component {
   state = {keywords: ""}
 
@@ -15,16 +16,15 @@ class Searchbar extends React.Component {
     });
     const data = await response.json();
     this.setState({ keywordsdata: data });
-    // console.log(this.state);
   };
 
-  //handleSelectChange is used in order to get input values from CreatableSelect
+  //handleSelectChange is used in order to get input values from Select
   handleSelectChange = (keyword) => {
     this.setState({keyword})
-    // console.log(`Option selected:`, keyword);
     this.props.getSearchKeyword(keyword.label)
   }
 
+  // show keywords in the select options
   renderKeywords = () => {
     if (this.state.keywordsdata) {
       let keywordsarr = [];
@@ -36,30 +36,24 @@ class Searchbar extends React.Component {
         <div style={{ width: "250px" }}>
           <Select
             value={this.state.keyword}
-            // value={selectedValue}
             menuPlacement="auto"
             menuPosition="fixed"
-            // defaultValue={[colourOptions[2], colourOptions[3]]}
             name="colors"
             options={keywordsarr}
             onChange={this.handleSelectChange}
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          {/* <br />
-          <b>Selected Value:</b> */}
         </div>
       );
     } else {
-      // console.log("did not render keywords")
       return <></>;
     }
   };
 
-  // get keywords from the database after render runs first time 
+  // get all the keywords from the database after render runs first time 
   componentDidMount() {
     this.getKeywordsData();
-    // console.log(this.state)
   }
   render() {
     return(

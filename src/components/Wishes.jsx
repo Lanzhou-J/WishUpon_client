@@ -15,7 +15,6 @@ class Wishes extends React.Component {
     });
     const data = await response.json();
     this.setState({ wishes: data.wishes.reverse()});
-    // console.log(this.state);
   };
 
   showCompleted = (wish) => {
@@ -34,14 +33,11 @@ class Wishes extends React.Component {
 
   renderWishes = () => {
     let newwishes = this.state.wishes;
-    // console.log(newwishes)
-    // if(this.state.wishes.length!==0){
     return newwishes.map((wish, index) => {
       let keywords = []
       wish.keywords.forEach((word)=>{
         keywords.push(word.word)
       })
-      // console.log(keywords)
       return (
           <div className="card-wrapper flip-card" key={index}>
             <div className="wish-index card flip-card-inner" >
@@ -73,6 +69,9 @@ class Wishes extends React.Component {
     });
   };
 
+  // Pass the getSearchKeyword function to Searchbar component as props.
+  // then the state will contain the keyword that users input in search bar.
+  // Pass this.state.wishes and this.state.searchkeyword to SearchResult as props
   render() {
     return (
       <div className="wish-index-container">

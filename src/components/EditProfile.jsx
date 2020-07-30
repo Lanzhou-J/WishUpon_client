@@ -1,7 +1,6 @@
 import React from "react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
-// import { Link } from "react-router-dom";
 import "../stylesheets/EditProfile.scss"
 
 class EditProfile extends React.Component {
@@ -27,29 +26,18 @@ class EditProfile extends React.Component {
         [key]: event.target.value,
       });
     }
-    // console.log(this.state);
   };
 
   handleSelectChange = (hobbies) => {
     this.setState({hobbies})
-    // console.log(`Option selected:`, keywords);
-    // selectedOption.forEach((option, index)=>{
-    //   this.setState({[index]: option.value.word})
-    // })
   }
   handleCountryChange = (country) => {
     this.setState({country})
-    // console.log(`Option selected:`, country);
-    // console.log(`Option selected:`, keywords);
-    // selectedOption.forEach((option, index)=>{
-    //   this.setState({[index]: option.value.word})
-    // })
   }
 
   onFormSubmit = async (event) => {
     event.preventDefault();
     let id = this.state.id;
-    // let { first_name, last_name, age } = this.state;
     let clone = this.state
     delete clone.countries
     delete clone.hobbiesdata
@@ -67,7 +55,6 @@ class EditProfile extends React.Component {
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/${id}`, {
       method: "PUT",
       headers: {
-        // "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: datacopy,
@@ -83,7 +70,6 @@ class EditProfile extends React.Component {
     });
     const data = await response.json();
     this.setState({ hobbiesdata: data });
-    // console.log(this.state);
   };
 
   renderHobbies = () => {
@@ -92,17 +78,14 @@ class EditProfile extends React.Component {
       this.state.hobbiesdata.hobbies.forEach((hobby) => {
         hobbiesarr.push({ value: hobby, label: hobby.name, index: hobby.id });
       });
-      // console.log(hobbiesarr);
 
       return (
         <div style={{ width: "250px" }}>
           <CreatableSelect
             value = {this.state.hobbies}
             id="keyword1"
-            // value={selectedValue}
             menuPlacement="auto"
             menuPosition="fixed"
-            // defaultValue={[colourOptions[2], colourOptions[3]]}
             isMulti
             name="colors"
             options={hobbiesarr}
@@ -110,8 +93,6 @@ class EditProfile extends React.Component {
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          {/* <br />
-          <b>Selected Value:</b> */}
         </div>
       );
     } else {
@@ -123,7 +104,6 @@ class EditProfile extends React.Component {
     const response = await fetch(`https://restcountries.eu/rest/v2/all`);
     const data = await response.json();
     this.setState({ countries: data });
-    // console.log(this.state);
   };
 
   renderCountries = () => {
@@ -136,7 +116,6 @@ class EditProfile extends React.Component {
           index: index
         });
       });
-      // console.log(countriesarr);
 
     if(this.state.country){
 
@@ -146,22 +125,17 @@ class EditProfile extends React.Component {
         <div style={{ width: "250px" }}>
           <Select
             value={this.state.country}
-            // value={selectedValue}
             menuPlacement="auto"
             menuPosition="fixed"
-            // defaultValue={[colourOptions[2], colourOptions[3]]}
             name="colors"
             options={countriesarr}
             onChange={this.handleCountryChange}
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          {/* <br />
-          <b>Selected Value:</b> */}
         </div>
       );
     } else {
-      // console.log("did not render countries")
       return <></>;
     }
   };
@@ -181,36 +155,15 @@ class EditProfile extends React.Component {
     })
 
     const countryvalue = {value:data.country, label: data.country.name, index: data.country.id}
-    // console.log(newhobbies)
-    // console.log(data.country.name)
 
     this.setState({first_name: currentuser.first_name, last_name: currentuser.last_name, age: currentuser.age, id: currentuser.id, country: countryvalue, loading: false})
     this.setState({hobbies: newhobbies})
-    // console.log(this.state)
     this.getHobbiesData();
     this.getCountry();
-    // const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-    //   },
-    // });
-    // const data = await response.json();
-
-    // console.log(data.wishes[0])
-    // const { title, description, user_id, is_secret, is_anonymous, is_completed, keywords } = data.wishes[0]
-    // console.log(keywords)
-    // let newkeywords = []
-    // keywords.forEach((word)=>{
-    //   newkeywords.push({value:word, label:word.word, index:word.id})
-    // })
-    // this.setState({ title, user_id, description, is_anonymous, is_secret, is_completed, loading: false });
-    // this.setState({keywords: newkeywords})
-    // this.getKeywordsData();
   }
 
   render() {
-    const { first_name, last_name, age, country_id, image, hobbies, loading } = this.state;
+    const { first_name, last_name, age, loading } = this.state;
     return (
         !loading && (
         <div className="form-container-wish-edit">
