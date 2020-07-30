@@ -5,6 +5,8 @@ import "../stylesheets/Wish.scss";
 class Wish extends React.Component {
   state = { wishes: null, comments: null, count: 0 };
 
+  // Make a get request to the backend to show one wish
+  // based on id params
   showWish = async (id) => {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`,
@@ -20,6 +22,7 @@ class Wish extends React.Component {
     }
   };
 
+  // Make a get request to the backend to show all comments of this wish
   showComment = async (id) => {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/wishes/${id}/comments`,
@@ -33,6 +36,8 @@ class Wish extends React.Component {
     this.setState({ comments: data });
   };
 
+  // render comments on the wish webpage
+  // display information including username/content/timestamp
   renderComments = () => {
     return this.state.comments.map((comment, index) => {
       return (
@@ -48,12 +53,14 @@ class Wish extends React.Component {
     });
   };
 
+  // handle input change of the comment form
   onInputChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
     });
   };
 
+  // Make a Post request to the backend to store new comments in the database
   onCommentFormSubmit = async (event) => {
     const b = this.props.match.params.id;
     event.preventDefault();
@@ -71,6 +78,7 @@ class Wish extends React.Component {
     window.location.reload();
   };
 
+  // display the add comment form
   createComments = () => {
     return (
       <div className="form-container-comments" style={{ margin: "0 0 35px 0" }}>
@@ -101,6 +109,7 @@ class Wish extends React.Component {
     );
   };
 
+  // handle like button onClick - increment like counts logic
   incrementMe = async () => {
     const id = this.props.match.params.id;
     let newCount = this.state.count + 1;
@@ -120,27 +129,8 @@ class Wish extends React.Component {
     });
   };
 
-  protectedButtons = (wish) => {
-    return (
-      <div className="protectedButtons">
-        <Link to={`/wishes/${wish.id}/edit`}>
-          <button className="edit-back-delete-button" data-testid="editButton">
-            Edit
-          </button>
-        </Link>
-        <span onClick={() => this.deleteWish(wish.id)}>
-          <button
-            className="edit-back-delete-button"
-            data-testid="deleteButton"
-          >
-            Delete
-          </button>
-        </span>
-        <button onClick={this.markAsComplete}>Mark as completed</button>
-      </div>
-    );
-  };
-
+  // Conditional rendering, if the wish is completed, show completed message
+  // with the color of cornflowerblue
   showCompleted = (wish) => {
     if (wish && wish.is_completed) {
       return (
@@ -153,12 +143,14 @@ class Wish extends React.Component {
     }
   };
 
+  // get the wish data and get comments data after render runs for the first time
   componentDidMount() {
     const b = this.props.match.params.id;
     this.showWish(b);
     this.showComment(b);
   }
 
+  // display the wish data including title, description, image etc. on the webpage
   render() {
     const wish = this.state.wishes;
     const comments = this.state.comments;

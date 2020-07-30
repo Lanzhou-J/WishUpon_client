@@ -7,6 +7,7 @@ import SearchResult from "./SearchResult";
 class Wishes extends React.Component {
   state = { wishes: [] };
 
+  // make a get request to get all the wishes from backend
   getWishes = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/wishes/`,
@@ -20,6 +21,7 @@ class Wishes extends React.Component {
     this.setState({ wishes: data.wishes.reverse() });
   };
 
+  // conditional rendering: show completed tag on cards if the wish is competed
   showCompleted = (wish) => {
     if (wish && wish.is_completed) {
       return <p>Completed</p>;
@@ -28,12 +30,17 @@ class Wishes extends React.Component {
     }
   };
 
+  // set searchkeyword key value pair in the state of Wishes component
+  // will pass this method to Searchbar in order to lift state
   getSearchKeyword = (input) => {
     this.setState((state) => {
       return { searchkeyword: input };
     });
   };
 
+  // this function is used to display wishes cards
+  // each card contains 2 faces (front, back)
+  // click on the text area and users will be redirected to wish page
   renderWishes = () => {
     let newwishes = this.state.wishes;
     return newwishes.map((wish, index) => {
@@ -92,6 +99,7 @@ class Wishes extends React.Component {
     );
   }
 
+  // run the getWishes function after render runs for the first time
   async componentDidMount() {
     this.getWishes();
   }

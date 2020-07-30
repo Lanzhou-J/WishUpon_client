@@ -101,6 +101,9 @@ class EditWish extends React.Component {
     this.setState({ keywordsdata: data });
   };
 
+  // show keywords in the select options
+  // Users can search/select from existing options
+  // and can also create new options
   renderKeywords = () => {
     if (this.state.keywordsdata) {
       let keywordsarr = [];

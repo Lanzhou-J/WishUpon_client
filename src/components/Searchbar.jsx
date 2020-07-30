@@ -28,6 +28,7 @@ class Searchbar extends React.Component {
   };
 
   // show keywords in the select options
+  // Users can only select from existing options
   renderKeywords = () => {
     if (this.state.keywordsdata) {
       let keywordsarr = [];

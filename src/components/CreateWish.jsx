@@ -66,8 +66,11 @@ class CreateWish extends React.Component {
     this.setState({ keywordsdata: data });
   };
 
-  // build a valid options array for CreatableSelect
+  // show keywords in the select options
+  // Users can search/select from existing options
+  // and can also create new options
   // set "isMulti" in order to select multiple keywords
+  // build a valid options array for CreatableSelect
   renderKeywords = () => {
     if (this.state.keywordsdata) {
       let keywordsarr = [];

@@ -12,6 +12,7 @@ class SignUp extends React.Component {
     last_name: "",
   };
 
+  // handle input change of text input including email/passwords/names etc.
   onInputChange = (event) => {
     const key = event.target.id;
     this.setState({
@@ -19,11 +20,13 @@ class SignUp extends React.Component {
     });
   };
 
+  // handle the input change of country selection bar
   handleSelectChange = (country) => {
     this.setState({ country });
     console.log(`Option selected:`, country);
   };
 
+  // get country information from Countries API
   getCountry = async () => {
     const response = await fetch(`https://restcountries.eu/rest/v2/all`);
     const data = await response.json();
@@ -31,6 +34,8 @@ class SignUp extends React.Component {
     console.log(this.state);
   };
 
+  // render 250 countries in the selection options
+  // Users can only select from the existing options
   renderCountries = () => {
     if (this.state.countries) {
       let countriesarr = [];
@@ -47,18 +52,14 @@ class SignUp extends React.Component {
         <div style={{ width: "250px" }}>
           <Select
             value={this.state.country}
-            // value={selectedValue}
             menuPlacement="auto"
             menuPosition="fixed"
-            // defaultValue={[colourOptions[2], colourOptions[3]]}
             name="colors"
             options={countriesarr}
             onChange={this.handleSelectChange}
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          {/* <br />
-          <b>Selected Value:</b> */}
         </div>
       );
     } else {
