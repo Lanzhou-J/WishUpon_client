@@ -16,7 +16,6 @@ import Room from "../shared/Room";
 import About from "./About";
 import EditProfile from "./EditProfile";
 
-
 class App extends React.Component {
   // only authenticated users are able to visit protectedroutes
   // e.g. Dashboard/Wishes/EditProfile page etc.
@@ -38,7 +37,6 @@ class App extends React.Component {
           <Route exact path="/about" component={About} />
           <Route component={NoMatch} />
         </Switch>
-        {/* <Footer /> */}
       </>
     );
   }

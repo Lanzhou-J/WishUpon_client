@@ -30,10 +30,6 @@ class EditWish extends React.Component {
 
   handleSelectChange = (keywords) => {
     this.setState({ keywords });
-    // console.log(`Option selected:`, keywords);
-    // selectedOption.forEach((option, index)=>{
-    //   this.setState({[index]: option.value.word})
-    // })
   };
 
   onFormSubmit = async (event) => {
@@ -71,7 +67,6 @@ class EditWish extends React.Component {
     delete clone.uploadedImage;
     delete clone.loading;
     delete clone.keywordsdata;
-    // console.log(clone)
 
     const datacopy = new FormData();
     for (let key in clone) {
@@ -86,7 +81,6 @@ class EditWish extends React.Component {
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes/${id}`, {
       method: "PUT",
       headers: {
-        // "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: datacopy,
@@ -105,7 +99,6 @@ class EditWish extends React.Component {
     );
     const data = await response.json();
     this.setState({ keywordsdata: data });
-    // console.log(this.state);
   };
 
   renderKeywords = () => {
@@ -118,17 +111,14 @@ class EditWish extends React.Component {
           index: keyword.id,
         });
       });
-      // console.log(keywordsarr);
 
       return (
         <div style={{ width: "250px" }}>
           <CreatableSelect
             value={this.state.keywords}
             id="keyword1"
-            // value={selectedValue}
             menuPlacement="auto"
             menuPosition="fixed"
-            // defaultValue={[colourOptions[2], colourOptions[3]]}
             isMulti
             name="colors"
             options={keywordsarr}
@@ -136,8 +126,6 @@ class EditWish extends React.Component {
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          {/* <br />
-          <b>Selected Value:</b> */}
         </div>
       );
     } else {
@@ -158,7 +146,6 @@ class EditWish extends React.Component {
     );
     const data = await response.json();
 
-    // console.log(data.wishes[0])
     if (data.wishes) {
       const {
         title,
@@ -185,8 +172,6 @@ class EditWish extends React.Component {
       this.setState({ keywords: newkeywords });
       this.getKeywordsData();
     }
-
-    // console.log(keywords)
   }
 
   render() {
@@ -213,14 +198,6 @@ class EditWish extends React.Component {
               value={title}
               style={{ width: "400px", height: "30px" }}
             />
-            {/* <label htmlFor="user_id">User ID</label>
-            <input
-              type="text"
-              name="user_id"
-              id="user_id"
-              onChange={this.onInputChange}
-              value={user_id}
-            /> */}
             <label htmlFor="description">Description</label>
             <textarea
               className="wish-input"
@@ -237,7 +214,6 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    // checked={is_secret}
                     name="is_secret"
                     id="is_secret"
                     value="true"
@@ -251,7 +227,6 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    // checked={!is_secret}
                     name="is_secret"
                     id="is_secret"
                     value="false"
@@ -270,7 +245,6 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    // checked={is_anonymous}
                     name="is_anonymous"
                     id="is_anonymous"
                     value="true"
@@ -284,7 +258,6 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    // checked={!is_anonymous}
                     name="is_anonymous"
                     id="is_anonymous"
                     value="false"
@@ -303,7 +276,6 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    // checked={is_completed}
                     name="is_completed"
                     id="is_completed"
                     value="true"
@@ -317,7 +289,6 @@ class EditWish extends React.Component {
                 <label>
                   <input
                     type="radio"
-                    // checked={!is_completed}
                     name="is_completed"
                     id="is_completed"
                     value="false"

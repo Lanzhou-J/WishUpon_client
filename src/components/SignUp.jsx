@@ -2,7 +2,15 @@ import React from "react";
 import Select from "react-select";
 
 class SignUp extends React.Component {
-  state = { email: "", password: "", country_id: "", countries: [], country:"", first_name: "", last_name: "" };
+  state = {
+    email: "",
+    password: "",
+    country_id: "",
+    countries: [],
+    country: "",
+    first_name: "",
+    last_name: "",
+  };
 
   onInputChange = (event) => {
     const key = event.target.id;
@@ -12,12 +20,9 @@ class SignUp extends React.Component {
   };
 
   handleSelectChange = (country) => {
-    this.setState({country})
+    this.setState({ country });
     console.log(`Option selected:`, country);
-    // selectedOption.forEach((option, index)=>{
-    //   this.setState({[index]: option.value.word})
-    // })
-  }
+  };
 
   getCountry = async () => {
     const response = await fetch(`https://restcountries.eu/rest/v2/all`);
@@ -29,11 +34,11 @@ class SignUp extends React.Component {
   renderCountries = () => {
     if (this.state.countries) {
       let countriesarr = [];
-      this.state.countries.forEach((country,index) => {
+      this.state.countries.forEach((country, index) => {
         countriesarr.push({
           value: country,
           label: country.name,
-          index: index
+          index: index,
         });
       });
       console.log(countriesarr);
@@ -57,7 +62,7 @@ class SignUp extends React.Component {
         </div>
       );
     } else {
-      console.log("did not render countries")
+      console.log("did not render countries");
       return <></>;
     }
   };
@@ -65,8 +70,8 @@ class SignUp extends React.Component {
   onFormSubmit = async (event) => {
     event.preventDefault();
     let { email, password, country, first_name, last_name } = this.state;
-    if(country.value){
-      country = country.value.name
+    if (country.value) {
+      country = country.value.name;
     }
     try {
       const response = await fetch(
@@ -76,7 +81,9 @@ class SignUp extends React.Component {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ user: { email, password, first_name, last_name, country} }),
+          body: JSON.stringify({
+            user: { email, password, first_name, last_name, country },
+          }),
         }
       );
       if (response.status >= 400) {
@@ -89,7 +96,9 @@ class SignUp extends React.Component {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ auth: { email, password, first_name, last_name, country} }),
+            body: JSON.stringify({
+              auth: { email, password, first_name, last_name, country },
+            }),
           }
         );
         const { jwt } = await response.json();
@@ -103,11 +112,10 @@ class SignUp extends React.Component {
   };
   componentDidMount() {
     this.getCountry();
-    // console.log(this.state)
   }
 
   render() {
-    const { email, password, first_name, last_name} = this.state;
+    const { email, password, first_name, last_name } = this.state;
     return (
       <div className="Home-container">
         <div className="image-container">

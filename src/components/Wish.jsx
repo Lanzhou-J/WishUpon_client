@@ -15,7 +15,7 @@ class Wish extends React.Component {
       }
     );
     const data = await response.json();
-    if(data.wishes){
+    if (data.wishes) {
       this.setState({ wishes: data.wishes[0], count: data.wishes[0].like });
     }
   };
@@ -82,14 +82,19 @@ class Wish extends React.Component {
             name="content"
             id="content"
             onChange={this.onInputChange}
-            style={{height:"25px", width:"400px"}}
+            style={{ height: "25px", width: "400px" }}
           />
           <input
             id="addcomment"
             type="submit"
             data-testid="comments-button"
             value="Add A Comment"
-            style={{backgroundColor:"white", border:"0.5px solid black", marginLeft:"8px", height: "25px"}}
+            style={{
+              backgroundColor: "white",
+              border: "0.5px solid black",
+              marginLeft: "8px",
+              height: "25px",
+            }}
           />
         </form>
       </div>
@@ -116,13 +121,10 @@ class Wish extends React.Component {
   };
 
   protectedButtons = (wish) => {
-    return(
+    return (
       <div className="protectedButtons">
         <Link to={`/wishes/${wish.id}/edit`}>
-          <button
-            className="edit-back-delete-button"
-            data-testid="editButton"
-          >
+          <button className="edit-back-delete-button" data-testid="editButton">
             Edit
           </button>
         </Link>
@@ -134,22 +136,22 @@ class Wish extends React.Component {
             Delete
           </button>
         </span>
-        <button onClick={this.markAsComplete}>
-          Mark as completed
-        </button>
+        <button onClick={this.markAsComplete}>Mark as completed</button>
       </div>
-    )
+    );
   };
 
-  showCompleted=(wish)=>{
-    if(wish&&wish.is_completed){
-      return(
-        <p style={{color: "cornflowerblue", fontWeight:"bold"}}>This wish is completed!Yay!</p>
-      )
-    }else{
-      return(<></>)
+  showCompleted = (wish) => {
+    if (wish && wish.is_completed) {
+      return (
+        <p style={{ color: "cornflowerblue", fontWeight: "bold" }}>
+          This wish is completed!Yay!
+        </p>
+      );
+    } else {
+      return <></>;
     }
-  }
+  };
 
   componentDidMount() {
     const b = this.props.match.params.id;

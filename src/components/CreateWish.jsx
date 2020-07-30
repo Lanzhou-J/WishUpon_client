@@ -3,7 +3,7 @@ import "../stylesheets/CreateWish.scss";
 import CreatableSelect from "react-select/creatable";
 
 class CreateWish extends React.Component {
-  state = {keywords: []}
+  state = { keywords: [] };
 
   // on input change create new key value pairs in state
   // based on form input id and content
@@ -22,8 +22,8 @@ class CreateWish extends React.Component {
 
   //handleSelectChange is used in order to get input values from CreatableSelect
   handleSelectChange = (keywords) => {
-    this.setState({keywords})
-  }
+    this.setState({ keywords });
+  };
 
   // onFormSubmit is called when the create form is submitted
   // A new FormData object is created, send to backend and parsed to send params
@@ -37,9 +37,9 @@ class CreateWish extends React.Component {
       data.append(`wish[${key}]`, body[key]);
     }
 
-    body.keywords.forEach((word,index)=>{
-      data.append(`wish[keyword${index+1}]`, word.label);
-    })
+    body.keywords.forEach((word, index) => {
+      data.append(`wish[keyword${index + 1}]`, word.label);
+    });
 
     // Make a post request to create new wish
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/wishes`, {
@@ -54,11 +54,14 @@ class CreateWish extends React.Component {
 
   // make a get request to get all keywords in the database for users to select from
   getKeywordsData = async () => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/keywords/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/keywords/`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     const data = await response.json();
     this.setState({ keywordsdata: data });
   };
@@ -69,13 +72,17 @@ class CreateWish extends React.Component {
     if (this.state.keywordsdata) {
       let keywordsarr = [];
       this.state.keywordsdata.keywords.forEach((keyword) => {
-        keywordsarr.push({ value: keyword, label: keyword.word, index: keyword.id });
+        keywordsarr.push({
+          value: keyword,
+          label: keyword.word,
+          index: keyword.id,
+        });
       });
 
       return (
         <div style={{ width: "250px" }}>
           <CreatableSelect
-            value = {this.state.keywords}
+            value={this.state.keywords}
             menuPlacement="auto"
             menuPosition="fixed"
             isMulti
@@ -92,7 +99,7 @@ class CreateWish extends React.Component {
     }
   };
 
-  // get keywords from the database after render runs first time 
+  // get keywords from the database after render runs first time
   componentDidMount() {
     this.getKeywordsData();
   }
@@ -190,10 +197,7 @@ class CreateWish extends React.Component {
             id="image"
             onChange={this.onInputChange}
           />
-          <input 
-            className="wish-submit" 
-            type="submit" 
-            value="Add a wish" />
+          <input className="wish-submit" type="submit" value="Add a wish" />
         </form>
       </div>
     );
