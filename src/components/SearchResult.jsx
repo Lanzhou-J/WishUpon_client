@@ -11,7 +11,7 @@ class Searchresult extends React.Component {
   searchwish = (wishes, keyword) => {
     let searchwishes = [];
     wishes.forEach((wish, index) => {
-      const found = wish.keywords.find((element) => element.word == keyword);
+      const found = wish.keywords.find((element) => element.word === keyword);
       if (found) {
         searchwishes.push(wish);
       }

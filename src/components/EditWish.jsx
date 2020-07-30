@@ -25,7 +25,6 @@ class EditWish extends React.Component {
         [key]: event.target.value,
       });
     }
-    // console.log(this.state)
   };
 
   handleSelectChange = (keywords) => {
@@ -36,12 +35,6 @@ class EditWish extends React.Component {
     event.preventDefault();
     let {
       id,
-      title,
-      description,
-      user_id,
-      is_secret,
-      is_anonymous,
-      keywords,
       image,
       uploadedImage,
     } = this.state;
@@ -136,6 +129,7 @@ class EditWish extends React.Component {
     }
   };
 
+  // get the original data of this wish and display them inside input boxes
   async componentDidMount() {
     const { id } = this.state;
     const response = await fetch(
@@ -180,7 +174,6 @@ class EditWish extends React.Component {
   render() {
     const {
       title,
-      user_id,
       description,
       is_secret,
       is_anonymous,

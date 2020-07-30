@@ -6,7 +6,7 @@ import "../stylesheets/navbar.scss"
 
 const NavBar = () => {
   const history = useHistory();
-  // console.log(localStorage.getItem("token"));
+
   if (localStorage.getItem("token") !== null) {
     return (
       <nav>
